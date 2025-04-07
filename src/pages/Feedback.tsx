@@ -45,7 +45,7 @@ const Feedback = () => {
   if (isLoading) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${themeClasses} p-4 font-inter`}>
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-2 border-t-blue-500"></div>
       </div>
     );
   }
@@ -53,7 +53,7 @@ const Feedback = () => {
   if (error || !username) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${themeClasses} p-4 font-inter`}>
-        <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}>
+        <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border border-gray-200'} rounded-lg shadow-sm`}>
           <CardContent className="p-6">
             <div className="text-center">
               <h2 className={`text-xl font-medium mb-2 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>
@@ -75,26 +75,26 @@ const Feedback = () => {
 
   return (
     <div className={`min-h-screen flex items-center justify-center ${themeClasses} p-4 font-inter`}>
-      <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}>
+      <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border border-gray-200'} rounded-lg shadow-sm`}>
         <CardContent className="p-6">
           <div className="text-center mb-6">
-            <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
               {displayUser.avatar_url ? (
                 <img 
                   src={displayUser.avatar_url} 
                   alt={`${displayUser.username}'s avatar`} 
-                  className="rounded-full w-16 h-16"
+                  className="rounded-full w-12 h-12"
                 />
               ) : (
-                <span className="text-2xl font-bold text-indigo-600">
+                <span className="text-lg font-semibold text-blue-600">
                   {displayUser.username.charAt(0).toUpperCase()}
                 </span>
               )}
             </div>
-            <h2 className={`text-xl font-medium mb-1 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>
+            <h2 className={`text-lg font-medium mb-1 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>
               Send feedback to {displayUser.username}
             </h2>
-            <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+            <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
               Your feedback will remain 100% anonymous
             </p>
           </div>
@@ -103,7 +103,7 @@ const Feedback = () => {
           
           <div className="mt-6 text-center">
             <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-              Powered by <a href="/" className="underline hover:text-indigo-600">FeedbackWave</a>
+              Powered by <a href="/" className="text-blue-500 hover:text-blue-600">FeedbackWave</a>
             </p>
           </div>
         </CardContent>

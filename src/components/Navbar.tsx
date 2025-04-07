@@ -16,10 +16,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-100 py-4 px-6">
+    <nav className="border-b border-gray-200 py-4 px-6">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <Link to="/" className="text-2xl font-bold text-gray-800">
+          <Link to="/" className="text-xl font-semibold text-gray-900">
             FeedbackWave
           </Link>
         </div>
@@ -27,7 +27,7 @@ const Navbar = () => {
         {isMobile ? (
           <>
             <button
-              className="p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none"
+              className="p-2 rounded-md text-gray-500 hover:text-gray-700 focus:outline-none"
               onClick={toggleMobileMenu}
               aria-label="Toggle menu"
             >
@@ -35,13 +35,13 @@ const Navbar = () => {
             </button>
             
             {mobileMenuOpen && (
-              <div className="absolute top-16 left-0 right-0 bg-white z-50 border-b border-gray-100 shadow-md">
+              <div className="absolute top-16 left-0 right-0 bg-white z-50 border-b border-gray-200 shadow-sm">
                 <div className="flex flex-col p-4 space-y-3">
                   {isAuthenticated ? (
                     <>
                       <Link 
                         to="/dashboard" 
-                        className="py-2 px-4 text-gray-700 hover:bg-gray-50 rounded-lg"
+                        className="py-2 px-4 text-gray-700 hover:bg-gray-50 rounded-md"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Dashboard
@@ -61,14 +61,14 @@ const Navbar = () => {
                     <>
                       <Link 
                         to="/login" 
-                        className="py-2 px-4 text-gray-700 hover:bg-gray-50 rounded-lg"
+                        className="py-2 px-4 text-gray-700 hover:bg-gray-50 rounded-md"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Login
                       </Link>
                       <Link 
                         to="/register" 
-                        className="py-2 px-4 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg text-center"
+                        className="py-2 px-4 bg-blue-500 text-white hover:bg-blue-600 rounded-md text-center"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Get Started
@@ -83,23 +83,25 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                <Link to="/dashboard" className="text-gray-700 hover:text-gray-900">
+                <Link to="/dashboard" className="text-sm text-gray-600 hover:text-gray-900">
                   Dashboard
                 </Link>
                 <Button 
                   variant="outline" 
                   onClick={logout}
+                  size="sm"
+                  className="text-sm font-medium"
                 >
                   Sign Out
                 </Button>
               </>
             ) : (
               <>
-                <Link to="/login" className="text-gray-700 hover:text-gray-900">
+                <Link to="/login" className="text-sm text-gray-600 hover:text-gray-900">
                   Login
                 </Link>
                 <Link to="/register">
-                  <Button className="bg-indigo-600 hover:bg-indigo-700">
+                  <Button className="bg-blue-500 hover:bg-blue-600 text-sm font-medium" size="sm">
                     Get Started
                   </Button>
                 </Link>

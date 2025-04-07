@@ -50,24 +50,24 @@ const Register = () => {
       
       <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900">
+          <h2 className="text-center text-2xl font-semibold text-gray-900">
             Create your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Already have an account?{" "}
-            <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+            <Link to="/login" className="font-medium text-blue-500 hover:text-blue-600">
               Sign in
             </Link>
           </p>
         </div>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <Card className="shadow-soft border-gray-200 rounded-xl">
-            <CardHeader className="pb-2">
+          <Card className="shadow-sm border border-gray-200 rounded-lg">
+            <CardHeader className="pb-2 pt-6 px-6">
               <CardTitle className="text-lg font-medium">Create Account</CardTitle>
             </CardHeader>
-            <CardContent>
-              <form className="space-y-6" onSubmit={handleSubmit}>
+            <CardContent className="px-6 pb-6">
+              <form className="space-y-5" onSubmit={handleSubmit}>
                 <div>
                   <Label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Email address
@@ -143,7 +143,7 @@ const Register = () => {
                 <div>
                   <Button
                     type="submit"
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl py-6"
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-md h-10"
                     disabled={isLoading}
                   >
                     {isLoading ? "Creating account..." : "Create account"}

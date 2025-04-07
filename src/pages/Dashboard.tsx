@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import EmbedCodeGenerator from "@/components/EmbedCodeGenerator";
 import FeedbackEntry from "@/components/FeedbackEntry";
 import PremiumUpsell from "@/components/PremiumUpsell";
@@ -57,7 +57,7 @@ const Dashboard = () => {
         <Navbar />
         <div className="max-w-screen-lg mx-auto px-6 py-16">
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+            <div className="animate-spin rounded-full h-10 w-10 border-2 border-t-blue-500"></div>
           </div>
         </div>
       </div>
@@ -72,19 +72,19 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50 font-inter">
       <Navbar />
       
-      <div className="max-w-screen-lg mx-auto px-6 py-10">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
+      <div className="max-w-screen-lg mx-auto px-6 py-8">
+        <h1 className="text-2xl font-semibold text-gray-900 mb-6">Dashboard</h1>
         
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          <Card className="shadow-soft border-gray-200 rounded-xl">
+        <div className="grid md:grid-cols-3 gap-5 mb-8">
+          <Card className="shadow-sm border border-gray-200 rounded-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
-                  <MessageSquare className="text-indigo-600" size={24} />
+                <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-3">
+                  <MessageSquare className="text-blue-500" size={20} />
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Total Feedback</p>
-                  <h3 className="text-2xl font-bold text-gray-800">
+                  <h3 className="text-xl font-semibold text-gray-900">
                     {feedbackItems.length}
                   </h3>
                 </div>
@@ -92,25 +92,25 @@ const Dashboard = () => {
             </CardContent>
           </Card>
           
-          <Card className="shadow-soft border-gray-200 rounded-xl">
+          <Card className="shadow-sm border border-gray-200 rounded-lg">
             <CardContent className="p-6">
               <p className="text-sm text-gray-500 mb-2">Your Public Feedback URL</p>
               <div className="flex items-center">
-                <div className="truncate text-gray-800 font-medium">
+                <div className="truncate text-gray-900 text-sm font-medium">
                   {window.location.origin}/feedback/{user?.username}
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="shadow-soft border-gray-200 rounded-xl">
+          <Card className="shadow-sm border border-gray-200 rounded-lg">
             <CardContent className="p-6">
               <p className="text-sm text-gray-500 mb-2">Account Status</p>
               <div className="flex items-center">
-                <div className={`px-3 py-1 rounded-full text-sm font-medium ${
+                <div className={`px-2 py-1 rounded-full text-xs font-medium ${
                   user?.is_premium 
-                    ? "bg-green-100 text-green-800" 
-                    : "bg-yellow-100 text-yellow-800"
+                    ? "bg-green-100 text-green-700" 
+                    : "bg-yellow-100 text-yellow-700"
                 }`}>
                   {user?.is_premium ? "Premium" : "Free"}
                 </div>
@@ -119,17 +119,17 @@ const Dashboard = () => {
           </Card>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           <div className="md:col-span-2">
-            <div className="bg-white rounded-xl shadow-soft mb-8 p-6 border border-gray-200">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">Recent Feedback</h2>
+            <div className="bg-white rounded-lg shadow-sm mb-6 p-6 border border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Feedback</h2>
               
               {isLoadingFeedback ? (
                 <div className="flex justify-center items-center h-32">
-                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-2 border-t-blue-500"></div>
                 </div>
               ) : feedbackItems.length > 0 ? (
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {feedbackItems.map((item) => (
                     <FeedbackEntry
                       key={item.id}
