@@ -82,7 +82,7 @@
     @apply font-display tracking-tight font-medium;
   }
   .section {
-    @apply py-20 md:py-32;
+    @apply py-16 md:py-24;
   }
   .container-tight {
     @apply max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8;
@@ -94,25 +94,39 @@
 
 /* dub.co styling */
 .btn-primary {
-  @apply bg-blue-500 hover:bg-blue-600 text-white transition-colors font-medium;
+  @apply bg-black hover:bg-zinc-800 text-white transition-colors font-medium rounded-md;
 }
 
 .btn-outline {
-  @apply border border-gray-200 text-gray-800 hover:bg-gray-50 transition-colors;
+  @apply border border-zinc-200 text-zinc-800 hover:bg-zinc-50 transition-colors rounded-md;
 }
 
 .btn-ghost {
-  @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors;
+  @apply text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 transition-colors rounded-md;
 }
 
 .card-shadow {
-  @apply shadow-md rounded-lg;
+  @apply shadow-sm rounded-lg border border-zinc-100;
+}
+
+.gradient-bg {
+  @apply bg-gradient-to-r from-orange-50 via-pink-50 to-purple-50;
 }
 
 .gradient-text {
-  @apply bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent;
 }
 
-.divider {
-  @apply border-t border-gray-200;
+/* Hero section background */
+.hero-gradient {
+  background: radial-gradient(
+      circle at top left,
+      rgba(255, 232, 196, 0.8) 0%,
+      rgba(255, 251, 245, 0.1) 100%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(251, 232, 255, 0.8) 0%,
+      rgba(251, 249, 255, 0.2) 100%
+    );
 }

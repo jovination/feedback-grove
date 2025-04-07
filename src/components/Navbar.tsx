@@ -16,10 +16,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="py-4 px-4 sm:px-6 border-b border-zinc-100">
+    <nav className="py-4 px-4 sm:px-6 bg-white">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <Link to="/" className="text-xl font-semibold text-zinc-900">
+          <Link to="/" className="text-xl font-bold text-black">
             FeedbackWave
           </Link>
         </div>
@@ -27,7 +27,7 @@ const Navbar = () => {
         {isMobile ? (
           <>
             <button
-              className="p-2 rounded-md text-zinc-500 hover:text-zinc-800 focus:outline-none"
+              className="p-2 rounded-md text-zinc-700 hover:text-zinc-900 focus:outline-none"
               onClick={toggleMobileMenu}
               aria-label="Toggle menu"
             >
@@ -64,14 +64,14 @@ const Navbar = () => {
                         className="py-2 px-4 text-zinc-700 hover:bg-zinc-50 rounded-md"
                         onClick={() => setMobileMenuOpen(false)}
                       >
-                        Login
+                        Log In
                       </Link>
                       <Link 
                         to="/register" 
-                        className="py-2 px-4 bg-blue-500 text-white hover:bg-blue-600 rounded-md text-center"
+                        className="py-2 px-4 bg-black text-white hover:bg-zinc-800 rounded-md text-center"
                         onClick={() => setMobileMenuOpen(false)}
                       >
-                        Get Started
+                        Sign Up
                       </Link>
                     </>
                   )}
@@ -80,17 +80,26 @@ const Navbar = () => {
             )}
           </>
         ) : (
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-6">
+            <Link to="#" className="text-[15px] text-zinc-600 hover:text-zinc-900">
+              Product
+            </Link>
+            <Link to="#" className="text-[15px] text-zinc-600 hover:text-zinc-900">
+              Resources
+            </Link>
+            <Link to="#" className="text-[15px] text-zinc-600 hover:text-zinc-900">
+              Pricing
+            </Link>
+            
             {isAuthenticated ? (
               <>
                 <Link to="/dashboard" className="text-[15px] text-zinc-600 hover:text-zinc-900">
                   Dashboard
                 </Link>
                 <Button 
-                  variant="outline" 
+                  variant="ghost" 
                   onClick={logout}
-                  size="sm"
-                  className="text-sm font-medium border-zinc-200"
+                  className="text-[15px] font-medium"
                 >
                   Sign Out
                 </Button>
@@ -98,11 +107,11 @@ const Navbar = () => {
             ) : (
               <>
                 <Link to="/login" className="text-[15px] text-zinc-600 hover:text-zinc-900">
-                  Login
+                  Log In
                 </Link>
                 <Link to="/register">
-                  <Button className="bg-blue-500 hover:bg-blue-600 text-sm font-medium" size="sm">
-                    Get Started
+                  <Button className="bg-black hover:bg-zinc-800 text-[15px] font-medium" size="sm">
+                    Sign Up
                   </Button>
                 </Link>
               </>
