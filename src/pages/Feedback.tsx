@@ -39,13 +39,13 @@ const Feedback = () => {
   }, [username]);
 
   const themeClasses = theme === 'dark' 
-    ? 'bg-gray-900 text-gray-100' 
-    : 'bg-gray-50 text-gray-800';
+    ? 'bg-zinc-900 text-zinc-100' 
+    : 'bg-zinc-50 text-zinc-800';
 
   if (isLoading) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${themeClasses} p-4 font-inter`}>
-        <div className="animate-spin rounded-full h-10 w-10 border-2 border-t-blue-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-t-blue-500"></div>
       </div>
     );
   }
@@ -53,13 +53,13 @@ const Feedback = () => {
   if (error || !username) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${themeClasses} p-4 font-inter`}>
-        <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border border-gray-200'} rounded-lg shadow-sm`}>
+        <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-white border border-zinc-200'} rounded-lg shadow-sm`}>
           <CardContent className="p-6">
             <div className="text-center">
-              <h2 className={`text-xl font-medium mb-2 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>
+              <h2 className={`text-xl font-medium mb-2 ${theme === 'dark' ? 'text-zinc-100' : 'text-zinc-800'}`}>
                 Error
               </h2>
-              <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+              <p className={`${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-600'} text-[15px]`}>
                 {error || "Invalid username. Please check the URL and try again."}
               </p>
             </div>
@@ -75,7 +75,7 @@ const Feedback = () => {
 
   return (
     <div className={`min-h-screen flex items-center justify-center ${themeClasses} p-4 font-inter`}>
-      <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border border-gray-200'} rounded-lg shadow-sm`}>
+      <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-white border border-zinc-200'} rounded-lg shadow-sm`}>
         <CardContent className="p-6">
           <div className="text-center mb-6">
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -91,10 +91,10 @@ const Feedback = () => {
                 </span>
               )}
             </div>
-            <h2 className={`text-lg font-medium mb-1 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>
+            <h2 className={`text-lg font-medium mb-1 ${theme === 'dark' ? 'text-zinc-100' : 'text-zinc-800'}`}>
               Send feedback to {displayUser.username}
             </h2>
-            <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
+            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-500'}`}>
               Your feedback will remain 100% anonymous
             </p>
           </div>
@@ -102,7 +102,7 @@ const Feedback = () => {
           <FeedbackForm username={displayUser.username} />
           
           <div className="mt-6 text-center">
-            <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+            <p className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
               Powered by <a href="/" className="text-blue-500 hover:text-blue-600">FeedbackWave</a>
             </p>
           </div>

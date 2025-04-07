@@ -16,10 +16,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="border-b border-gray-200 py-4 px-6">
+    <nav className="py-4 px-4 sm:px-6 border-b border-zinc-100">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <Link to="/" className="text-xl font-semibold text-gray-900">
+          <Link to="/" className="text-xl font-semibold text-zinc-900">
             FeedbackWave
           </Link>
         </div>
@@ -27,7 +27,7 @@ const Navbar = () => {
         {isMobile ? (
           <>
             <button
-              className="p-2 rounded-md text-gray-500 hover:text-gray-700 focus:outline-none"
+              className="p-2 rounded-md text-zinc-500 hover:text-zinc-800 focus:outline-none"
               onClick={toggleMobileMenu}
               aria-label="Toggle menu"
             >
@@ -35,13 +35,13 @@ const Navbar = () => {
             </button>
             
             {mobileMenuOpen && (
-              <div className="absolute top-16 left-0 right-0 bg-white z-50 border-b border-gray-200 shadow-sm">
+              <div className="absolute top-16 left-0 right-0 bg-white z-50 border-b border-zinc-100 shadow-sm">
                 <div className="flex flex-col p-4 space-y-3">
                   {isAuthenticated ? (
                     <>
                       <Link 
                         to="/dashboard" 
-                        className="py-2 px-4 text-gray-700 hover:bg-gray-50 rounded-md"
+                        className="py-2 px-4 text-zinc-700 hover:bg-zinc-50 rounded-md"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Dashboard
@@ -52,7 +52,7 @@ const Navbar = () => {
                           logout();
                           setMobileMenuOpen(false);
                         }}
-                        className="w-full"
+                        className="w-full border-zinc-200"
                       >
                         Sign Out
                       </Button>
@@ -61,7 +61,7 @@ const Navbar = () => {
                     <>
                       <Link 
                         to="/login" 
-                        className="py-2 px-4 text-gray-700 hover:bg-gray-50 rounded-md"
+                        className="py-2 px-4 text-zinc-700 hover:bg-zinc-50 rounded-md"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Login
@@ -83,21 +83,21 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                <Link to="/dashboard" className="text-sm text-gray-600 hover:text-gray-900">
+                <Link to="/dashboard" className="text-[15px] text-zinc-600 hover:text-zinc-900">
                   Dashboard
                 </Link>
                 <Button 
                   variant="outline" 
                   onClick={logout}
                   size="sm"
-                  className="text-sm font-medium"
+                  className="text-sm font-medium border-zinc-200"
                 >
                   Sign Out
                 </Button>
               </>
             ) : (
               <>
-                <Link to="/login" className="text-sm text-gray-600 hover:text-gray-900">
+                <Link to="/login" className="text-[15px] text-zinc-600 hover:text-zinc-900">
                   Login
                 </Link>
                 <Link to="/register">
