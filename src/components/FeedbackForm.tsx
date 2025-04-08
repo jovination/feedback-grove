@@ -40,7 +40,7 @@ const FeedbackForm = ({ username }: FeedbackFormProps) => {
     <form onSubmit={handleSubmit} className="space-y-4">
       <Textarea
         placeholder="Share your anonymous feedback here..."
-        className="min-h-[150px] bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        className="min-h-[150px] bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 p-4 text-[15px]"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         required
@@ -51,7 +51,10 @@ const FeedbackForm = ({ username }: FeedbackFormProps) => {
         className="w-full bg-black hover:bg-zinc-800 rounded-md h-12 font-medium flex items-center justify-center gap-2"
       >
         {isSubmitting ? (
-          "Submitting..."
+          <>
+            <div className="animate-spin rounded-full h-4 w-4 border-2 border-t-white"></div>
+            <span>Submitting...</span>
+          </>
         ) : (
           <>
             <MessageSquare size={16} />

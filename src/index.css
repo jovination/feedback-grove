@@ -80,7 +80,8 @@
 }
 
 .gradient-bg {
-  @apply bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50;
+  background: linear-gradient(to bottom right, #fff5f6, #ffeef5, #fff5ff);
+  background-attachment: fixed;
 }
 
 .gradient-text {
@@ -89,12 +90,8 @@
 
 /* Hero section background - closer to dub.co */
 .hero-gradient {
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 251, 245, 0.8) 0%,
-    rgba(255, 244, 230, 0.6) 50%,
-    rgba(255, 236, 210, 0.4) 100%
-  );
+  background: linear-gradient(to bottom right, #fff5f6, #ffeef5, #fff5ff);
+  background-attachment: fixed;
 }
 
 /* Share button dropdown */
@@ -120,4 +117,59 @@
 /* Custom feedback card styling */
 .feedback-card {
   @apply bg-white border border-zinc-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-4;
+}
+
+/* Feature card styling */
+.feature-card {
+  @apply bg-white border border-zinc-100 rounded-xl shadow-sm p-6 transition-all duration-200 hover:shadow-md hover:border-zinc-200;
+}
+
+/* How it works section styling */
+.how-it-works-step {
+  @apply relative flex flex-col items-start;
+}
+
+.how-it-works-step::before {
+  content: "";
+  @apply absolute h-full w-[1px] bg-zinc-200 left-5 top-10;
+}
+
+.how-it-works-step:last-child::before {
+  @apply h-0;
+}
+
+.step-number {
+  @apply w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 font-semibold z-10;
+}
+
+/* Social proof section */
+.social-proof-card {
+  @apply p-6 bg-white rounded-xl border border-zinc-200 shadow-sm;
+}
+
+.feedback-example {
+  @apply border border-zinc-100 rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition-all;
+}
+
+/* Modern stat counter */
+.stat-counter {
+  @apply text-4xl font-bold text-black;
+}
+
+/* Dashboard improvements */
+.dashboard-card {
+  @apply bg-white border border-zinc-100 rounded-lg shadow-sm p-5 hover:shadow-md transition-all duration-200;
+}
+
+.dashboard-stat {
+  @apply flex items-center gap-3;
+}
+
+.dashboard-icon-wrapper {
+  @apply w-10 h-10 rounded-full flex items-center justify-center;
+}
+
+/* Illustration placeholder */
+.illustration-placeholder {
+  @apply w-full h-64 bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg flex items-center justify-center;
 }

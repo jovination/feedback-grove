@@ -3,20 +3,21 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const isMobile = useIsMobile();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [productDropdownOpen, setProductDropdownOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
   return (
-    <nav className="py-4 px-4 sm:px-6 border-b border-zinc-100 bg-white sticky top-0 z-40">
+    <nav className="py-3 px-4 sm:px-6 border-b border-zinc-100 bg-white sticky top-0 z-40">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="text-xl font-bold text-black flex items-center">
@@ -27,7 +28,7 @@ const Navbar = () => {
         {isMobile ? (
           <>
             <button
-              className="p-2 rounded-md text-zinc-700 hover:text-zinc-900 focus:outline-none"
+              className="p-2 rounded-md text-zinc-700 hover:text-zinc-900 hover:bg-zinc-50 focus:outline-none"
               onClick={toggleMobileMenu}
               aria-label="Toggle menu"
             >
@@ -37,6 +38,35 @@ const Navbar = () => {
             {mobileMenuOpen && (
               <div className="absolute top-16 left-0 right-0 bg-white z-50 border-b border-zinc-100 shadow-sm">
                 <div className="flex flex-col p-4 space-y-3">
+                  <div className="py-1 border-b border-zinc-100">
+                    <button 
+                      className="flex items-center justify-between w-full py-2 px-4 text-zinc-700 hover:bg-zinc-50 rounded-md"
+                      onClick={() => setProductDropdownOpen(!productDropdownOpen)}
+                    >
+                      <span>Product</span>
+                      <ChevronDown size={16} className={`transition-transform ${productDropdownOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {productDropdownOpen && (
+                      <div className="pl-4 py-2 space-y-2">
+                        <Link 
+                          to="#features" 
+                          className="block py-2 px-4 text-zinc-600 hover:bg-zinc-50 rounded-md"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          Features
+                        </Link>
+                        <Link 
+                          to="#how-it-works" 
+                          className="block py-2 px-4 text-zinc-600 hover:bg-zinc-50 rounded-md"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          How it works
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                  
                   {isAuthenticated ? (
                     <>
                       <Link 
@@ -81,14 +111,29 @@ const Navbar = () => {
           </>
         ) : (
           <div className="flex items-center gap-6">
-            <Link to="#" className="text-[15px] text-zinc-600 hover:text-zinc-900">
-              Product
-            </Link>
+            <div className="relative group">
+              <button className="flex items-center gap-1 text-[15px] text-zinc-600 hover:text-zinc-900">
+                Product
+                <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
+              </button>
+              
+              <div className="absolute top-full left-0 pt-2 hidden group-hover:block">
+                <div className="bg-white rounded-md shadow-md border border-zinc-200 py-1 min-w-[160px]">
+                  <Link to="#features" className="block px-4 py-2 text-[14px] text-zinc-600 hover:bg-zinc-50">
+                    Features
+                  </Link>
+                  <Link to="#how-it-works" className="block px-4 py-2 text-[14px] text-zinc-600 hover:bg-zinc-50">
+                    How it works
+                  </Link>
+                  <Link to="#pricing" className="block px-4 py-2 text-[14px] text-zinc-600 hover:bg-zinc-50">
+                    Pricing
+                  </Link>
+                </div>
+              </div>
+            </div>
+            
             <Link to="#" className="text-[15px] text-zinc-600 hover:text-zinc-900">
               Resources
-            </Link>
-            <Link to="#" className="text-[15px] text-zinc-600 hover:text-zinc-900">
-              Pricing
             </Link>
             
             {isAuthenticated ? (
