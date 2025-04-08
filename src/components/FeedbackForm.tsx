@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
+import { MessageSquare } from "lucide-react";
 
 interface FeedbackFormProps {
   username: string;
@@ -39,7 +40,7 @@ const FeedbackForm = ({ username }: FeedbackFormProps) => {
     <form onSubmit={handleSubmit} className="space-y-4">
       <Textarea
         placeholder="Share your anonymous feedback here..."
-        className="min-h-[150px] bg-gray-50 border border-gray-200 rounded-xl"
+        className="min-h-[150px] bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         required
@@ -47,9 +48,16 @@ const FeedbackForm = ({ username }: FeedbackFormProps) => {
       <Button 
         type="submit" 
         disabled={isSubmitting || !message.trim()}
-        className="w-full bg-indigo-600 hover:bg-indigo-700 rounded-xl h-12 font-medium"
+        className="w-full bg-black hover:bg-zinc-800 rounded-md h-12 font-medium flex items-center justify-center gap-2"
       >
-        {isSubmitting ? "Submitting..." : "Send Feedback Anonymously"}
+        {isSubmitting ? (
+          "Submitting..."
+        ) : (
+          <>
+            <MessageSquare size={16} />
+            Send Feedback Anonymously
+          </>
+        )}
       </Button>
       <p className="text-center text-gray-500 text-sm">
         Your feedback will be completely anonymous.

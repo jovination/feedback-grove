@@ -4,6 +4,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import FeedbackForm from "@/components/FeedbackForm";
 import { api } from "@/lib/api";
+import { Share2 } from "lucide-react";
 
 interface UserProfile {
   username: string;
@@ -40,12 +41,12 @@ const Feedback = () => {
 
   const themeClasses = theme === 'dark' 
     ? 'bg-zinc-900 text-zinc-100' 
-    : 'bg-zinc-50 text-zinc-800';
+    : 'gradient-bg text-zinc-800';
 
   if (isLoading) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${themeClasses} p-4 font-inter`}>
-        <div className="animate-spin rounded-full h-8 w-8 border-2 border-t-blue-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-t-amber-500"></div>
       </div>
     );
   }
@@ -78,7 +79,7 @@ const Feedback = () => {
       <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-white border border-zinc-200'} rounded-lg shadow-sm`}>
         <CardContent className="p-6">
           <div className="text-center mb-6">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
               {displayUser.avatar_url ? (
                 <img 
                   src={displayUser.avatar_url} 
@@ -86,7 +87,7 @@ const Feedback = () => {
                   className="rounded-full w-12 h-12"
                 />
               ) : (
-                <span className="text-lg font-semibold text-blue-600">
+                <span className="text-lg font-semibold text-amber-600">
                   {displayUser.username.charAt(0).toUpperCase()}
                 </span>
               )}
@@ -102,8 +103,11 @@ const Feedback = () => {
           <FeedbackForm username={displayUser.username} />
           
           <div className="mt-6 text-center">
-            <p className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
-              Powered by <a href="/" className="text-blue-500 hover:text-blue-600">FeedbackWave</a>
+            <p className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'} flex items-center justify-center`}>
+              <Share2 size={12} className="mr-1" /> Share this feedback form
+            </p>
+            <p className={`text-xs mt-2 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+              Powered by <a href="/" className="text-amber-500 hover:text-amber-600">FeedbackWave</a>
             </p>
           </div>
         </CardContent>

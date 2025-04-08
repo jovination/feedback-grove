@@ -16,8 +16,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
 
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -36,36 +36,6 @@
     --ring: 221.2 83.2% 53.3%;
 
     --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -92,7 +62,7 @@
   }
 }
 
-/* dub.co styling */
+/* FeedbackWave styling */
 .btn-primary {
   @apply bg-black hover:bg-zinc-800 text-white transition-colors font-medium rounded-md;
 }
@@ -110,23 +80,44 @@
 }
 
 .gradient-bg {
-  @apply bg-gradient-to-r from-orange-50 via-pink-50 to-purple-50;
+  @apply bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50;
 }
 
 .gradient-text {
-  @apply bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent;
+  @apply bg-gradient-to-br from-amber-500 to-orange-500 bg-clip-text text-transparent;
 }
 
-/* Hero section background */
+/* Hero section background - closer to dub.co */
 .hero-gradient {
   background: radial-gradient(
-      circle at top left,
-      rgba(255, 232, 196, 0.8) 0%,
-      rgba(255, 251, 245, 0.1) 100%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      rgba(251, 232, 255, 0.8) 0%,
-      rgba(251, 249, 255, 0.2) 100%
-    );
+    circle at center,
+    rgba(255, 251, 245, 0.8) 0%,
+    rgba(255, 244, 230, 0.6) 50%,
+    rgba(255, 236, 210, 0.4) 100%
+  );
+}
+
+/* Share button dropdown */
+.share-dropdown {
+  @apply absolute right-0 top-full mt-1 bg-white rounded-md shadow-lg border border-gray-100 py-1 z-10;
+}
+
+/* Input styling to match dub.co */
+.input-style {
+  @apply w-full px-4 py-2 bg-white border border-zinc-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500;
+}
+
+/* Button styling to match dub.co */
+.dub-button {
+  @apply px-4 py-2 bg-black text-white rounded-md hover:bg-zinc-800 transition-colors duration-200 font-medium;
+}
+
+/* Card styling to match dub.co */
+.dub-card {
+  @apply bg-white border border-zinc-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-200;
+}
+
+/* Custom feedback card styling */
+.feedback-card {
+  @apply bg-white border border-zinc-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-4;
 }

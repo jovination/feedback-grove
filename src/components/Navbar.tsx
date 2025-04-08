@@ -16,10 +16,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="py-4 px-4 sm:px-6 bg-white">
+    <nav className="py-4 px-4 sm:px-6 border-b border-zinc-100 bg-white sticky top-0 z-40">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <Link to="/" className="text-xl font-bold text-black">
+          <Link to="/" className="text-xl font-bold text-black flex items-center">
             FeedbackWave
           </Link>
         </div>
@@ -110,7 +110,7 @@ const Navbar = () => {
                   Log In
                 </Link>
                 <Link to="/register">
-                  <Button className="bg-black hover:bg-zinc-800 text-[15px] font-medium" size="sm">
+                  <Button className="bg-black hover:bg-zinc-800 text-[15px] font-medium rounded-md" size="sm">
                     Sign Up
                   </Button>
                 </Link>

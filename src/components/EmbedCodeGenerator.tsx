@@ -1,8 +1,8 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Copy } from "lucide-react";
+import { Check, Copy, Code } from "lucide-react";
 import { toast } from "sonner";
 
 interface EmbedCodeGeneratorProps {
@@ -34,17 +34,20 @@ const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
   };
 
   return (
-    <Card className="border border-gray-200 rounded-xl shadow-soft">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-medium">Embed on your website</CardTitle>
+    <Card className="border border-zinc-200 rounded-xl shadow-sm">
+      <CardHeader className="pb-2 border-b border-zinc-100">
+        <CardTitle className="text-lg font-medium flex items-center gap-2">
+          <Code size={18} className="text-amber-500" />
+          Embed on your website
+        </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-4">
         <div className="mb-4">
-          <div className="flex items-center space-x-4 mb-3">
+          <div className="flex items-center space-x-2 mb-3">
             <Button
               type="button"
               variant={theme === "light" ? "default" : "outline"}
-              className="w-1/2"
+              className={`px-3 py-1 h-9 ${theme === "light" ? "bg-black text-white" : "text-zinc-700"}`}
               onClick={() => setTheme("light")}
             >
               Light
@@ -52,7 +55,7 @@ const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
             <Button
               type="button"
               variant={theme === "dark" ? "default" : "outline"}
-              className="w-1/2"
+              className={`px-3 py-1 h-9 ${theme === "dark" ? "bg-black text-white" : "text-zinc-700"}`}
               onClick={() => setTheme("dark")}
             >
               Dark
@@ -60,23 +63,23 @@ const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
           </div>
           
           <div className="relative">
-            <pre className="bg-gray-50 p-3 rounded-lg text-sm overflow-x-auto">
-              <code>{iframeCode}</code>
+            <pre className="bg-zinc-50 p-3 rounded-lg text-sm overflow-x-auto border border-zinc-200">
+              <code className="text-zinc-800 text-xs">{iframeCode}</code>
             </pre>
             <Button
               type="button"
               size="sm"
-              className="absolute top-2 right-2"
+              className="absolute top-2 right-2 bg-white hover:bg-zinc-100 text-zinc-700 border border-zinc-200"
               onClick={handleCopy}
             >
-              {copied ? <Check size={16} /> : <Copy size={16} />}
+              {copied ? <Check size={14} /> : <Copy size={14} />}
               <span className="sr-only">Copy embed code</span>
             </Button>
           </div>
         </div>
         
         <div className="mt-4">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-zinc-500">
             Copy and paste this code into your website to embed the feedback form.
           </p>
         </div>
