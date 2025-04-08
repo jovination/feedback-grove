@@ -10,6 +10,10 @@ import RegisterPage from "./pages/Register";
 import DashboardPage from "./pages/Dashboard";
 import FeedbackPage from "./pages/Feedback";
 import NotFound from "./pages/NotFound";
+import Features from "./pages/Features";
+import HowItWorks from "./pages/HowItWorks";
+import Resources from "./pages/Resources";
+import Pricing from "./pages/Pricing";
 import AuthProvider from "./contexts/AuthContext";
 
 // Create a client
@@ -34,6 +38,10 @@ const App = () => {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/feedback/:username" element={<FeedbackPage />} />
+              <Route path="/features" element={<Features />} />
+              <Route path="/how-it-works" element={<HowItWorks />} />
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/pricing" element={<Pricing />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <Toaster />
