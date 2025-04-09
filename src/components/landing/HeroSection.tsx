@@ -1,5 +1,5 @@
 
-import { Sparkles } from "lucide-react";
+import { Sparkles, Share2, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link as RouterLink } from "react-router-dom";
 

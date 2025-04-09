@@ -9,7 +9,6 @@ import ExamplesSection from "@/components/landing/ExamplesSection";
 import StatsSection from "@/components/landing/StatsSection";
 import CTASection from "@/components/landing/CTASection";
 import Footer from "@/components/landing/Footer";
-import { Share2, MessageSquare } from "lucide-react";
 
 const Index = () => {
   return (
