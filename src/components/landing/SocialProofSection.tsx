@@ -9,36 +9,35 @@ const fadeIn = {
     y: 0,
     transition: {
       delay: i * 0.1,
-      duration: 0.5,
+      duration: 0.3,
     }
   })
 };
 
 const SocialProofSection = () => {
   return (
-    <section className="py-14 bg-white border-y border-zinc-100">
+    <section className="py-10 bg-white border-t border-zinc-100">
       <div className="container-tight">
         <motion.p 
-          className="text-center text-sm text-zinc-600 mb-10 font-medium"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          className="text-center text-sm text-zinc-500 mb-8 font-medium"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
           Trusted by innovative teams at
         </motion.p>
         
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center">
-          {/* Improved company logos with modern styling */}
+        <div className="flex flex-wrap justify-center items-center gap-8 px-4">
+          {/* Simplified minimal logo style */}
           <motion.div
             custom={0}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
+            className="group"
           >
-            <Card className="flex items-center justify-center h-20 bg-white hover:shadow-lg transition-all duration-300 border-zinc-100 group hover:border-amber-200">
-              <div className="font-bold text-xl text-zinc-700 group-hover:scale-110 transition-transform duration-300">acme</div>
-            </Card>
+            <div className="font-bold text-zinc-800 group-hover:text-zinc-600 transition-colors">acme</div>
           </motion.div>
           
           <motion.div
@@ -47,10 +46,9 @@ const SocialProofSection = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
+            className="group"
           >
-            <Card className="flex items-center justify-center h-20 bg-white hover:shadow-lg transition-all duration-300 border-zinc-100 group hover:border-blue-200">
-              <div className="font-bold text-xl bg-gradient-to-r from-blue-500 to-blue-700 text-transparent bg-clip-text group-hover:scale-110 transition-transform duration-300">quantum</div>
-            </Card>
+            <div className="font-bold bg-gradient-to-r from-blue-500 to-blue-700 text-transparent bg-clip-text group-hover:opacity-80 transition-opacity">quantum</div>
           </motion.div>
           
           <motion.div
@@ -59,12 +57,11 @@ const SocialProofSection = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
+            className="group"
           >
-            <Card className="flex items-center justify-center h-20 bg-white hover:shadow-lg transition-all duration-300 border-zinc-100 group hover:border-amber-200">
-              <div className="font-bold text-xl text-zinc-700 group-hover:scale-110 transition-transform duration-300">
-                VERTEX<span className="text-amber-500">corp</span>
-              </div>
-            </Card>
+            <div className="font-bold text-zinc-800 group-hover:text-zinc-600 transition-colors">
+              VERTEX<span className="text-amber-500">corp</span>
+            </div>
           </motion.div>
           
           <motion.div
@@ -73,12 +70,11 @@ const SocialProofSection = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
+            className="group"
           >
-            <Card className="flex items-center justify-center h-20 bg-white hover:shadow-lg transition-all duration-300 border-zinc-100 group hover:border-zinc-200">
-              <div className="font-bold text-xl group-hover:scale-110 transition-transform duration-300">
-                <span className="bg-black text-white px-2 py-1 rounded">BOX</span>
-              </div>
-            </Card>
+            <div className="font-bold group-hover:opacity-80 transition-opacity">
+              <span className="bg-black text-white px-2 py-1 rounded">BOX</span>
+            </div>
           </motion.div>
           
           <motion.div
@@ -87,16 +83,15 @@ const SocialProofSection = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
+            className="group"
           >
-            <Card className="flex items-center justify-center h-20 bg-white hover:shadow-lg transition-all duration-300 border-zinc-100 group hover:border-green-200">
-              <div className="font-bold text-xl text-green-600 group-hover:scale-110 transition-transform duration-300">
-                eco<span className="text-zinc-700">sphere</span>
-              </div>
-            </Card>
+            <div className="font-bold text-green-600 group-hover:text-green-700 transition-colors">
+              eco<span className="text-zinc-700">sphere</span>
+            </div>
           </motion.div>
         </div>
         
-        <div className="mt-12 text-center">
+        <div className="mt-10 text-center">
           <p className="text-sm text-zinc-500">Join over <span className="font-medium text-black">10,000+</span> users collecting anonymous feedback</p>
         </div>
       </div>
