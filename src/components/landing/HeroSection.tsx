@@ -8,35 +8,37 @@ const HeroSection = () => {
   return (
     <section className="pt-20 pb-24 md:pt-24 md:pb-32 bg-white relative overflow-hidden">
       <div className="container-tight relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-block mb-4 py-1 px-3 bg-zinc-100 rounded-full text-[13px] font-medium text-zinc-800"
-        >
-          <Sparkles className="w-3 h-3 inline-block mr-1 text-amber-500" />
-          Anonymous feedback collection made simple
-        </motion.div>
-        
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-3xl md:text-5xl font-semibold text-black mb-5 tracking-tight"
-        >
-          Anonymous Feedback <br className="hidden md:block" />
-          With <span className="text-amber-500">Superpowers</span>
-        </motion.h1>
-        
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg text-zinc-600 mb-8 mx-auto max-w-2xl"
-        >
-          FeedbackWave is the open-source feedback management infrastructure 
-          for gathering honest, anonymous insights that help teams improve.
-        </motion.p>
+        <div className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-block mb-4 py-1 px-3 bg-zinc-100 rounded-full text-[13px] font-medium text-zinc-800"
+          >
+            <Sparkles className="w-3 h-3 inline-block mr-1 text-amber-500" />
+            Anonymous feedback collection made simple
+          </motion.div>
+          
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl md:text-5xl font-semibold text-black mb-5 tracking-tight"
+          >
+            Anonymous Feedback <br className="hidden md:block" />
+            With <span className="text-amber-500">Superpowers</span>
+          </motion.h1>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg text-zinc-600 mb-8 mx-auto max-w-2xl"
+          >
+            FeedbackWave is the open-source feedback management infrastructure 
+            for gathering honest, anonymous insights that help teams improve.
+          </motion.p>
+        </div>
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}

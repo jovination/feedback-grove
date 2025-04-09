@@ -2,6 +2,7 @@
 import { Users, Share2, MessageSquare, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -39,7 +40,7 @@ const HowItWorksSection = () => {
             variants={fadeIn}
             className="relative"
           >
-            <div className="flex flex-col h-full">
+            <Card className="feature-card h-full flex flex-col">
               <div className="mb-4 flex items-center">
                 <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-medium text-sm mr-3">1</div>
                 <h3 className="font-semibold text-lg">Create your account</h3>
@@ -47,7 +48,7 @@ const HowItWorksSection = () => {
               <p className="text-zinc-600 text-sm mb-4">
                 Sign up in less than 2 minutes and get your personal feedback link immediately.
               </p>
-              <ul className="space-y-2 mt-auto">
+              <ul className="space-y-2 mt-auto mb-4">
                 <li className="flex items-center text-xs text-zinc-500">
                   <div className="w-3 h-3 rounded-full bg-zinc-200 mr-2"></div>
                   No credit card required
@@ -57,10 +58,12 @@ const HowItWorksSection = () => {
                   Free plan available
                 </li>
               </ul>
-              <div className="flex items-center justify-center mt-5">
-                <Users className="text-zinc-400 w-10 h-10" />
+              <div className="flex items-center justify-center mt-auto">
+                <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
+                  <Users className="text-blue-600" size={20} />
+                </div>
               </div>
-            </div>
+            </Card>
           </motion.div>
           
           <motion.div 
@@ -71,7 +74,7 @@ const HowItWorksSection = () => {
             variants={fadeIn}
             className="relative"
           >
-            <div className="flex flex-col h-full">
+            <Card className="feature-card h-full flex flex-col">
               <div className="mb-4 flex items-center">
                 <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-medium text-sm mr-3">2</div>
                 <h3 className="font-semibold text-lg">Share your feedback link</h3>
@@ -79,7 +82,7 @@ const HowItWorksSection = () => {
               <p className="text-zinc-600 text-sm mb-4">
                 Share the link with friends, colleagues, or embed it on your website.
               </p>
-              <ul className="space-y-2 mt-auto">
+              <ul className="space-y-2 mt-auto mb-4">
                 <li className="flex items-center text-xs text-zinc-500">
                   <div className="w-3 h-3 rounded-full bg-zinc-200 mr-2"></div>
                   Simple copy and paste
@@ -89,10 +92,12 @@ const HowItWorksSection = () => {
                   Website widget available
                 </li>
               </ul>
-              <div className="flex items-center justify-center mt-5">
-                <Share2 className="text-zinc-400 w-10 h-10" />
+              <div className="flex items-center justify-center mt-auto">
+                <div className="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center">
+                  <Share2 className="text-green-600" size={20} />
+                </div>
               </div>
-            </div>
+            </Card>
           </motion.div>
           
           <motion.div 
@@ -103,7 +108,7 @@ const HowItWorksSection = () => {
             variants={fadeIn}
             className="relative"
           >
-            <div className="flex flex-col h-full">
+            <Card className="feature-card h-full flex flex-col">
               <div className="mb-4 flex items-center">
                 <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-medium text-sm mr-3">3</div>
                 <h3 className="font-semibold text-lg">Receive honest feedback</h3>
@@ -111,7 +116,7 @@ const HowItWorksSection = () => {
               <p className="text-zinc-600 text-sm mb-4">
                 Get 100% anonymous feedback to help you improve and grow.
               </p>
-              <ul className="space-y-2 mt-auto">
+              <ul className="space-y-2 mt-auto mb-4">
                 <li className="flex items-center text-xs text-zinc-500">
                   <div className="w-3 h-3 rounded-full bg-zinc-200 mr-2"></div>
                   Complete anonymity
@@ -121,10 +126,12 @@ const HowItWorksSection = () => {
                   Real-time notifications
                 </li>
               </ul>
-              <div className="flex items-center justify-center mt-5">
-                <MessageSquare className="text-zinc-400 w-10 h-10" />
+              <div className="flex items-center justify-center mt-auto">
+                <div className="w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center">
+                  <MessageSquare className="text-amber-600" size={20} />
+                </div>
               </div>
-            </div>
+            </Card>
           </motion.div>
         </div>
         

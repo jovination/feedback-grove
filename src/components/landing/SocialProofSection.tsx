@@ -27,7 +27,7 @@ const SocialProofSection = () => {
           Trusted by innovative teams at
         </motion.p>
         
-        <div className="flex flex-wrap justify-center items-center gap-8 px-4">
+        <div className="flex flex-wrap justify-center items-center gap-10 px-4 mb-10">
           {/* Simplified minimal logo style */}
           <motion.div
             custom={0}
@@ -91,7 +91,7 @@ const SocialProofSection = () => {
           </motion.div>
         </div>
         
-        <div className="mt-10 text-center">
+        <div className="mt-4 text-center">
           <p className="text-sm text-zinc-500">Join over <span className="font-medium text-black">10,000+</span> users collecting anonymous feedback</p>
         </div>
       </div>
