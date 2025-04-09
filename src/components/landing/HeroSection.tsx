@@ -1,42 +1,68 @@
 
-import { Sparkles, Share2, MessageSquare } from "lucide-react";
+import { Sparkles, Share2, MessageSquare, ArrowRight, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const HeroSection = () => {
   return (
     <section className="hero-gradient pt-20 pb-32 md:pt-28 md:pb-40 relative overflow-hidden">
-      <div className="container-tight text-center relative z-10">
-        <div className="inline-block mb-4 py-1.5 px-3 bg-white/80 backdrop-blur-sm border border-zinc-200 rounded-full text-[14px] font-medium text-zinc-800">
+      <div className="container-tight relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-block mb-4 py-1.5 px-3 bg-white/80 backdrop-blur-sm border border-zinc-200 rounded-full text-[14px] font-medium text-zinc-800"
+        >
           <Sparkles className="w-4 h-4 inline-block mr-2 text-amber-500" />
           Anonymous feedback collection made simple
-        </div>
+        </motion.div>
         
-        <h1 className="text-4xl md:text-6xl font-semibold text-black mb-6 tracking-tight">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-4xl md:text-6xl font-semibold text-black mb-6 tracking-tight"
+        >
           Anonymous Feedback <br className="hidden md:block" />
           With <span className="gradient-text">Superpowers</span>
-        </h1>
+        </motion.h1>
         
-        <p className="text-lg md:text-xl text-zinc-600 mb-10 mx-auto max-w-2xl">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-lg md:text-xl text-zinc-600 mb-10 mx-auto max-w-2xl"
+        >
           FeedbackWave is the open-source feedback management infrastructure 
           for gathering honest, anonymous insights that help teams improve.
-        </p>
+        </motion.p>
         
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
-          <RouterLink to="/register">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex flex-wrap justify-center gap-4 mb-16"
+        >
+          <Link to="/register">
             <Button className="h-11 px-5 rounded-md text-[15px] font-medium bg-black hover:bg-zinc-800 text-white">
               Start for Free
             </Button>
-          </RouterLink>
-          <RouterLink to="#how-it-works">
+          </Link>
+          <Link to="#how-it-works">
             <Button variant="outline" className="h-11 px-5 rounded-md text-[15px] font-medium border-zinc-200">
               See how it works
             </Button>
-          </RouterLink>
-        </div>
+          </Link>
+        </motion.div>
 
         {/* Enhanced Interactive Demo Widget with dub.co style */}
-        <div className="mx-auto max-w-3xl relative">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mx-auto max-w-3xl relative"
+        >
           <div className="absolute -top-6 -left-6 w-20 h-20 bg-amber-100 rounded-full filter blur-xl opacity-70 animate-pulse"></div>
           <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-blue-100 rounded-full filter blur-xl opacity-70 animate-pulse"></div>
           
@@ -54,13 +80,26 @@ const HeroSection = () => {
             </div>
 
             <div className="p-5 bg-gradient-to-br from-white to-zinc-50">
-              <div className="w-full h-36 bg-white border border-zinc-200 rounded-md p-3 text-sm text-zinc-700 mb-4 focus-within:ring-2 focus-within:ring-amber-500 focus-within:border-amber-500 transition-all shadow-sm hover:shadow-md">
-                <div className="animate-pulse">I really appreciate how you handled the client meeting yesterday. Your presentation was clear and engaging. One thing that could be improved is...</div>
+              <div className="relative mb-4 group">
+                <div className="w-full h-36 bg-white border border-zinc-200 rounded-md p-3 text-sm text-zinc-700 focus-within:ring-2 focus-within:ring-amber-500 focus-within:border-amber-500 transition-all shadow-sm hover:shadow-md overflow-hidden">
+                  <div className="animate-pulse opacity-80">I really appreciate how you handled the client meeting yesterday. Your presentation was clear and engaging. One thing that could be improved is...</div>
+                </div>
+                <div className="absolute top-2 right-2">
+                  <div className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full flex items-center">
+                    <CheckCircle className="h-3 w-3 mr-1" />
+                    Anonymous
+                  </div>
+                </div>
               </div>
-              <Button className="w-full bg-gradient-to-r from-black to-zinc-800 hover:from-zinc-800 hover:to-black rounded-md h-11 shadow-sm">
+              
+              <Button className="w-full bg-gradient-to-r from-black to-zinc-800 hover:from-zinc-800 hover:to-black rounded-md h-12 shadow-sm hover:shadow-md transition-all duration-300">
                 <MessageSquare className="h-4 w-4 mr-2" />
                 Send Feedback Anonymously
               </Button>
+              
+              <div className="mt-3 text-center">
+                <p className="text-xs text-zinc-500">100% anonymous and secure</p>
+              </div>
             </div>
 
             {/* Enhanced Widget Annotation */}
@@ -86,7 +125,7 @@ const HeroSection = () => {
               <div className="w-1/2 h-3 bg-zinc-100 rounded"></div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
       
       {/* Enhanced background elements */}
