@@ -74,7 +74,7 @@ const Dashboard = () => {
     );
   }
 
-  if (!isAuthenticated) {
+  if (isAuthenticated) {
     return <Navigate to="/login" />;
   }
 

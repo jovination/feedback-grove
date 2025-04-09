@@ -46,8 +46,12 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen hero-gradient font-inter flex flex-col">
-      <Navbar />
+    <div className="min-h-screen flex flex-col font-inter relative overflow-hidden bg-gradient-to-br from-white via-amber-50/30 to-blue-50/40">
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-100/20 via-transparent to-blue-100/10 pointer-events-none"></div>
+    
+    <div className="absolute top-1/4 -left-20 w-96 h-96 bg-amber-100 rounded-full filter blur-3xl opacity-10"></div>
+    <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-blue-100 rounded-full filter blur-3xl opacity-10"></div>
+          <Navbar />
       
       <div className="flex flex-col justify-center items-center py-16 flex-grow px-4">
         <div className="w-full max-w-md">

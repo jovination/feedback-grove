@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { MessageSquare } from "lucide-react";
+
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -22,7 +24,10 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="text-xl font-bold text-black flex items-center">
+          <div className="text-xl font-bold mb-4 md:mb-0 flex items-center">
+            <MessageSquare className="h-5 w-5 text-amber-500 mr-2" />
             FeedbackWave
+          </div>
           </Link>
         </div>
 

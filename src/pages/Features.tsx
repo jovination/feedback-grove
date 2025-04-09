@@ -108,7 +108,7 @@ const Features = () => {
             </div>
             
             <div className="bg-white p-8 rounded-xl border border-zinc-200 shadow-sm">
-              <div className="aspect-video bg-zinc-100 rounded-lg mb-4 flex items-center justify-center">
+              <div className="aspect-video bg-zinc-100 rounded-xl mb-4 flex items-center justify-center">
                 <Lock size={48} className="text-zinc-400" />
               </div>
               <div className="mb-4">

@@ -1,4 +1,3 @@
-
 import { Users, Share2, MessageSquare, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -16,6 +15,55 @@ const fadeIn = {
   })
 };
 
+// Define the type for our card data
+interface StepCard {
+  step: number;
+  title: string;
+  description: string;
+  benefits: string[];
+  icon: keyof typeof icons;
+  iconBgColor: string;
+  iconColor: string;
+}
+
+// Create an object of icons for easy reference
+const icons = {
+  Users,
+  Share2,
+  MessageSquare
+};
+
+// Define our dynamic data
+const stepsData: StepCard[] = [
+  {
+    step: 1,
+    title: "Create your account",
+    description: "Sign up in less than 2 minutes and get your personal feedback link immediately.",
+    benefits: ["No credit card required", "Free plan available"],
+    icon: "Users",
+    iconBgColor: "bg-blue-50",
+    iconColor: "text-blue-600"
+  },
+  {
+    step: 2,
+    title: "Share your feedback link",
+    description: "Share the link with friends, colleagues, or embed it on your website.",
+    benefits: ["Simple copy and paste", "Website widget available"],
+    icon: "Share2",
+    iconBgColor: "bg-green-50",
+    iconColor: "text-green-600"
+  },
+  {
+    step: 3,
+    title: "Receive honest feedback",
+    description: "Get 100% anonymous feedback to help you improve and grow.",
+    benefits: ["Complete anonymity", "Real-time notifications"],
+    icon: "MessageSquare",
+    iconBgColor: "bg-amber-50",
+    iconColor: "text-amber-600"
+  }
+];
+
 const HowItWorksSection = () => {
   return (
     <section id="how-it-works" className="py-16 bg-zinc-50">
@@ -32,107 +80,46 @@ const HowItWorksSection = () => {
         </div>
         
         <div className="grid md:grid-cols-3 gap-8 mt-12">
-          <motion.div 
-            custom={0}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="relative"
-          >
-            <Card className="feature-card h-full flex flex-col">
-              <div className="mb-4 flex items-center">
-                <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-medium text-sm mr-3">1</div>
-                <h3 className="font-semibold text-lg">Create your account</h3>
-              </div>
-              <p className="text-zinc-600 text-sm mb-4">
-                Sign up in less than 2 minutes and get your personal feedback link immediately.
-              </p>
-              <ul className="space-y-2 mt-auto mb-4">
-                <li className="flex items-center text-xs text-zinc-500">
-                  <div className="w-3 h-3 rounded-full bg-zinc-200 mr-2"></div>
-                  No credit card required
-                </li>
-                <li className="flex items-center text-xs text-zinc-500">
-                  <div className="w-3 h-3 rounded-full bg-zinc-200 mr-2"></div>
-                  Free plan available
-                </li>
-              </ul>
-              <div className="flex items-center justify-center mt-auto">
-                <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
-                  <Users className="text-blue-600" size={20} />
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-          
-          <motion.div 
-            custom={1}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="relative"
-          >
-            <Card className="feature-card h-full flex flex-col">
-              <div className="mb-4 flex items-center">
-                <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-medium text-sm mr-3">2</div>
-                <h3 className="font-semibold text-lg">Share your feedback link</h3>
-              </div>
-              <p className="text-zinc-600 text-sm mb-4">
-                Share the link with friends, colleagues, or embed it on your website.
-              </p>
-              <ul className="space-y-2 mt-auto mb-4">
-                <li className="flex items-center text-xs text-zinc-500">
-                  <div className="w-3 h-3 rounded-full bg-zinc-200 mr-2"></div>
-                  Simple copy and paste
-                </li>
-                <li className="flex items-center text-xs text-zinc-500">
-                  <div className="w-3 h-3 rounded-full bg-zinc-200 mr-2"></div>
-                  Website widget available
-                </li>
-              </ul>
-              <div className="flex items-center justify-center mt-auto">
-                <div className="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center">
-                  <Share2 className="text-green-600" size={20} />
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-          
-          <motion.div 
-            custom={2}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="relative"
-          >
-            <Card className="feature-card h-full flex flex-col">
-              <div className="mb-4 flex items-center">
-                <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-medium text-sm mr-3">3</div>
-                <h3 className="font-semibold text-lg">Receive honest feedback</h3>
-              </div>
-              <p className="text-zinc-600 text-sm mb-4">
-                Get 100% anonymous feedback to help you improve and grow.
-              </p>
-              <ul className="space-y-2 mt-auto mb-4">
-                <li className="flex items-center text-xs text-zinc-500">
-                  <div className="w-3 h-3 rounded-full bg-zinc-200 mr-2"></div>
-                  Complete anonymity
-                </li>
-                <li className="flex items-center text-xs text-zinc-500">
-                  <div className="w-3 h-3 rounded-full bg-zinc-200 mr-2"></div>
-                  Real-time notifications
-                </li>
-              </ul>
-              <div className="flex items-center justify-center mt-auto">
-                <div className="w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center">
-                  <MessageSquare className="text-amber-600" size={20} />
-                </div>
-              </div>
-            </Card>
-          </motion.div>
+          {stepsData.map((card, index) => {
+            const IconComponent = icons[card.icon];
+            
+            return (
+              <motion.div 
+                key={card.step}
+                custom={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+                className="relative"
+              >
+                <Card className="feature-card h-full flex flex-col">
+                  <div className="mb-4 flex items-center">
+                    <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-medium text-sm mr-3">
+                      {card.step}
+                    </div>
+                    <h3 className="font-semibold text-lg">{card.title}</h3>
+                  </div>
+                  <p className="text-zinc-600 text-sm mb-4">
+                    {card.description}
+                  </p>
+                  <ul className="space-y-2 mt-auto mb-4">
+                    {card.benefits.map((benefit, i) => (
+                      <li key={i} className="flex items-center text-xs text-zinc-500">
+                        <div className="w-3 h-3 rounded-full bg-zinc-200 mr-2"></div>
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex items-center justify-center mt-auto">
+                    <div className={`w-10 h-10 ${card.iconBgColor} rounded-full flex items-center justify-center`}>
+                      <IconComponent className={card.iconColor} size={20} />
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
         
         <div className="text-center mt-10">
