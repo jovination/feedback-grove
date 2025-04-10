@@ -26,7 +26,7 @@ const Navbar = () => {
           <Link to="/" className="text-xl font-bold text-black flex items-center">
           <div className="text-xl font-bold mb-4 md:mb-0 flex items-center">
             <MessageSquare className="h-5 w-5 text-amber-500 mr-2" />
-            FeedbackWave
+            FeedbackGrove
           </div>
           </Link>
         </div>

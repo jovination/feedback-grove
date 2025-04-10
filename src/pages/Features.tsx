@@ -280,7 +280,7 @@ const Features = () => {
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-zinc-100">
             <p className="text-sm text-zinc-500 mb-4 md:mb-0">
-              © {new Date().getFullYear()} FeedbackWave. All rights reserved.
+              © {new Date().getFullYear()} FeedbackGrove. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <Link to="#" className="text-sm text-zinc-500 hover:text-zinc-800">Terms</Link>

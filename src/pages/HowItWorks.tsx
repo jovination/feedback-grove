@@ -124,13 +124,13 @@ const HowItWorks = () => {
               
               <div className="md:order-1 bg-white p-6 rounded-xl border border-zinc-200 shadow-sm flex flex-col space-y-3">
                 <div className="bg-zinc-50 border border-zinc-200 rounded-lg p-3 flex items-center justify-between">
-                  <div className="text-sm font-medium text-zinc-700 truncate">https://feedbackwave.com/f/yourusername</div>
+                  <div className="text-sm font-medium text-zinc-700 truncate">https://feedbackgrove.com/f/username</div>
                   <button className="text-xs bg-zinc-200 hover:bg-zinc-300 px-2 py-1 rounded text-zinc-700">
                     Copy
                   </button>
                 </div>
                 <div className="font-mono text-xs bg-zinc-800 text-zinc-200 p-3 rounded-lg overflow-x-auto">
-                  &lt;script src="https://feedback-wave.com/embed.js" 
+                  &lt;script src="https://feedbackgrove.com/embed.js" 
                   <br />data-username="yourname"&gt;&lt;/script&gt;
                 </div>
                 <div className="p-3 border border-green-100 bg-green-50 rounded-lg text-green-800 text-sm flex items-center">
@@ -324,7 +324,7 @@ const HowItWorks = () => {
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-zinc-100">
             <p className="text-sm text-zinc-500 mb-4 md:mb-0">
-              © {new Date().getFullYear()} FeedbackWave. All rights reserved.
+              © {new Date().getFullYear()} FeedbackGrove. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <Link to="#" className="text-sm text-zinc-500 hover:text-zinc-800">Terms</Link>

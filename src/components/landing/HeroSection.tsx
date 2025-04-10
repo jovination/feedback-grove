@@ -35,7 +35,7 @@ Next  Big<span className="text-amber-500"> Breakthrough</span>
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-md text-zinc-600 mb-10 mx-auto max-w-2xl"
           >
-           FeedbackWave is the ultimate feedback tool built by founders, for founders. Collect anonymous, real-time feedback from your users.
+           FeedbackGrove is the ultimate feedback tool built by founders, for founders. Collect anonymous, real-time feedback from your users.
           </motion.p>
         </div>
         
@@ -95,7 +95,7 @@ Next  Big<span className="text-amber-500"> Breakthrough</span>
                   </div>
                 </div>
                 <div className="px-3 py-2 text-xs text-zinc-500 border-t border-zinc-100">
-                  <span>app.feedbackwave.co/register</span>
+                  <span>app.feedbackgrove.co/feedback</span>
                 </div>
               </div>
               
