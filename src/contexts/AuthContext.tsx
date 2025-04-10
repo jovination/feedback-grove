@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 
-interface User {
+export interface User {
   id: string;
   email: string;
   username: string;
