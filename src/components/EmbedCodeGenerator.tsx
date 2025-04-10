@@ -1,9 +1,11 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Copy, Code } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Check, Copy, Code, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useNavigate } from "react-router-dom";
 
 interface EmbedCodeGeneratorProps {
   username: string;
@@ -12,11 +14,13 @@ interface EmbedCodeGeneratorProps {
 const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
   const [copied, setCopied] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [template, setTemplate] = useState<"standard" | "minimal" | "branded">("standard");
+  const navigate = useNavigate();
   
   const baseUrl = window.location.origin;
   
   const iframeCode = `<iframe
-  src="${baseUrl}/feedback/${username}?theme=${theme}"
+  src="${baseUrl}/feedback/${username}?theme=${theme}&template=${template}"
   width="100%"
   height="400"
   style="border:none;border-radius:12px;overflow:hidden;"
@@ -33,6 +37,10 @@ const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
     }, 2000);
   };
 
+  const handleExploreTemplates = () => {
+    navigate('/widget-templates');
+  };
+
   return (
     <Card className="border border-zinc-200 rounded-xl shadow-sm">
       <CardHeader className="pb-2 border-b border-zinc-100">
@@ -40,26 +48,41 @@ const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
           <Code size={18} className="text-amber-500" />
           Embed on your website
         </CardTitle>
+        <CardDescription>
+          Customize the widget and get embed code
+        </CardDescription>
       </CardHeader>
       <CardContent className="p-4">
         <div className="mb-4">
-          <div className="flex items-center space-x-2 mb-3">
-            <Button
-              type="button"
-              variant={theme === "light" ? "default" : "outline"}
-              className={`px-3 py-1 h-9 ${theme === "light" ? "bg-black text-white" : "text-zinc-700"}`}
-              onClick={() => setTheme("light")}
-            >
-              Light
-            </Button>
-            <Button
-              type="button"
-              variant={theme === "dark" ? "default" : "outline"}
-              className={`px-3 py-1 h-9 ${theme === "dark" ? "bg-black text-white" : "text-zinc-700"}`}
-              onClick={() => setTheme("dark")}
-            >
-              Dark
-            </Button>
+          <div className="flex flex-col space-y-3 mb-4">
+            <div>
+              <p className="text-sm font-medium text-zinc-700 mb-1">Appearance</p>
+              <Tabs
+                value={theme}
+                onValueChange={(value) => setTheme(value as "light" | "dark")}
+                className="w-full"
+              >
+                <TabsList className="grid w-full grid-cols-2 h-9">
+                  <TabsTrigger value="light" className="text-xs">Light</TabsTrigger>
+                  <TabsTrigger value="dark" className="text-xs">Dark</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+            
+            <div>
+              <p className="text-sm font-medium text-zinc-700 mb-1">Template</p>
+              <Tabs
+                value={template}
+                onValueChange={(value) => setTemplate(value as "standard" | "minimal" | "branded")}
+                className="w-full"
+              >
+                <TabsList className="grid w-full grid-cols-3 h-9">
+                  <TabsTrigger value="standard" className="text-xs">Standard</TabsTrigger>
+                  <TabsTrigger value="minimal" className="text-xs">Minimal</TabsTrigger>
+                  <TabsTrigger value="branded" className="text-xs">Branded</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
           </div>
           
           <div className="relative">
@@ -78,10 +101,18 @@ const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
           </div>
         </div>
         
-        <div className="mt-4">
+        <div className="mt-4 flex justify-between items-center">
           <p className="text-sm text-zinc-500">
             Copy and paste this code into your website to embed the feedback form.
           </p>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleExploreTemplates}
+            className="whitespace-nowrap text-xs flex items-center gap-1"
+          >
+            <ExternalLink size={12} /> More Options
+          </Button>
         </div>
       </CardContent>
     </Card>

@@ -2,9 +2,15 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatDistanceToNow } from "date-fns";
-import { Trash2, Share2, Twitter, Facebook, Copy, Linkedin } from "lucide-react";
+import { Trash2, Share2, Twitter, Facebook, Copy, Linkedin, ThumbsUp, ThumbsDown, MoreHorizontal, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
 
 interface FeedbackEntryProps {
   id: string;
@@ -16,9 +22,10 @@ interface FeedbackEntryProps {
 const FeedbackEntry = ({ id, message, created_at, onDelete }: FeedbackEntryProps) => {
   const formattedDate = formatDistanceToNow(new Date(created_at), { addSuffix: true });
   const [showShareOptions, setShowShareOptions] = useState(false);
+  const [isLiked, setIsLiked] = useState<boolean | null>(null);
 
   const handleShare = (platform?: string) => {
-    const shareText = `"${message}" - Anonymous Feedback via FeedbackWave`;
+    const shareText = `"${message}" - Anonymous Feedback via FeedbackGrove`;
     const shareUrl = `${window.location.origin}/f/${id}`;
     
     switch(platform) {
@@ -41,65 +48,75 @@ const FeedbackEntry = ({ id, message, created_at, onDelete }: FeedbackEntryProps
     }
   };
 
+  const handleReaction = (liked: boolean) => {
+    setIsLiked(liked);
+    toast.success(liked ? "Marked as helpful" : "Marked as unhelpful");
+  };
+
   return (
     <Card className="mb-3 bg-white border border-zinc-100 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
       <CardContent className="p-4">
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <p className="text-zinc-800 mb-2 text-[15px] leading-relaxed">{message}</p>
+            <p className="text-zinc-800 mb-3 text-[15px] leading-relaxed">{message}</p>
             <div className="flex items-center justify-between">
               <p className="text-zinc-500 text-xs">{formattedDate}</p>
-              <div className="flex items-center space-x-1 relative">
-                <Button
-                  variant="ghost" 
-                  size="icon"
-                  className="text-zinc-400 hover:text-zinc-700 hover:bg-zinc-50 h-7 w-7 rounded-full"
-                  onClick={() => handleShare()}
-                >
-                  <Share2 size={15} />
-                  <span className="sr-only">Share feedback</span>
-                </Button>
-                
-                {showShareOptions && (
-                  <div className="absolute right-0 bottom-8 bg-white shadow-lg rounded-md border border-zinc-200 py-2 z-10 min-w-[180px]">
-                    <div className="flex flex-col">
-                      <button 
-                        onClick={() => handleShare('copy')}
-                        className="flex items-center px-3 py-1.5 hover:bg-zinc-50 text-sm text-zinc-700"
-                      >
-                        <Copy size={15} className="mr-2" /> Copy link
-                      </button>
-                      <button 
-                        onClick={() => handleShare('twitter')}
-                        className="flex items-center px-3 py-1.5 hover:bg-zinc-50 text-sm text-zinc-700"
-                      >
-                        <Twitter size={15} className="mr-2" /> Share on Twitter
-                      </button>
-                      <button 
-                        onClick={() => handleShare('facebook')}
-                        className="flex items-center px-3 py-1.5 hover:bg-zinc-50 text-sm text-zinc-700"
-                      >
-                        <Facebook size={15} className="mr-2" /> Share on Facebook
-                      </button>
-                      <button 
-                        onClick={() => handleShare('linkedin')}
-                        className="flex items-center px-3 py-1.5 hover:bg-zinc-50 text-sm text-zinc-700"
-                      >
-                        <Linkedin size={15} className="mr-2" /> Share on LinkedIn
-                      </button>
-                    </div>
+              <div className="flex items-center space-x-1">
+                {isLiked !== null ? (
+                  <div className={`text-xs px-2 py-1 rounded-full ${isLiked ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>
+                    {isLiked ? 'Helpful' : 'Not Helpful'}
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1">
+                    <Button
+                      variant="ghost" 
+                      size="icon"
+                      className="text-zinc-400 hover:text-green-500 hover:bg-green-50 h-7 w-7 rounded-full"
+                      onClick={() => handleReaction(true)}
+                    >
+                      <ThumbsUp size={15} />
+                      <span className="sr-only">Mark as helpful</span>
+                    </Button>
+                    <Button
+                      variant="ghost" 
+                      size="icon"
+                      className="text-zinc-400 hover:text-red-500 hover:bg-red-50 h-7 w-7 rounded-full"
+                      onClick={() => handleReaction(false)}
+                    >
+                      <ThumbsDown size={15} />
+                      <span className="sr-only">Mark as unhelpful</span>
+                    </Button>
                   </div>
                 )}
                 
-                <Button
-                  variant="ghost" 
-                  size="icon"
-                  className="text-zinc-400 hover:text-red-500 hover:bg-red-50 h-7 w-7 rounded-full"
-                  onClick={() => onDelete(id)}
-                >
-                  <Trash2 size={15} />
-                  <span className="sr-only">Delete feedback</span>
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost" 
+                      size="icon"
+                      className="text-zinc-400 hover:text-zinc-600 hover:bg-zinc-50 h-7 w-7 rounded-full"
+                    >
+                      <MoreHorizontal size={15} />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem className="cursor-pointer" onClick={() => handleShare('copy')}>
+                      <Copy className="mr-2 h-4 w-4" /> Copy to clipboard
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer" onClick={() => handleShare('twitter')}>
+                      <Twitter className="mr-2 h-4 w-4" /> Share on Twitter
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer" onClick={() => handleShare('facebook')}>
+                      <Facebook className="mr-2 h-4 w-4" /> Share on Facebook
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer" onClick={() => handleShare('linkedin')}>
+                      <Linkedin className="mr-2 h-4 w-4" /> Share on LinkedIn
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer text-red-600 hover:text-red-700 hover:bg-red-50" onClick={() => onDelete(id)}>
+                      <Trash2 className="mr-2 h-4 w-4" /> Delete feedback
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           </div>

@@ -8,6 +8,7 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import DashboardPage from "./pages/Dashboard";
 import FeedbackPage from "./pages/Feedback";
+import WidgetTemplatesPage from "./pages/WidgetTemplates";
 import NotFound from "./pages/NotFound";
 import Features from "./pages/Features";
 import HowItWorks from "./pages/HowItWorks";
@@ -37,6 +38,7 @@ const App = () => {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/feedback/:username" element={<FeedbackPage />} />
+              <Route path="/widget-templates" element={<WidgetTemplatesPage />} />
               <Route path="/features" element={<Features />} />
               <Route path="/how-it-works" element={<HowItWorks />} />
               <Route path="/resources" element={<Resources />} />

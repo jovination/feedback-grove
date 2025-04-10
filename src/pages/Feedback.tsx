@@ -21,6 +21,7 @@ const Feedback = () => {
   const [showShareMenu, setShowShareMenu] = useState(false);
   
   const theme = searchParams.get('theme') || 'light';
+  const template = searchParams.get('template') || 'standard';
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -70,13 +71,36 @@ const Feedback = () => {
     }
   };
 
-  const themeClasses = theme === 'dark' 
-    ? 'bg-zinc-900 text-zinc-100' 
-    : 'hero-gradient text-zinc-800';
+  // Determine classes based on theme and template
+  const getContainerClasses = () => {
+    const baseClasses = "min-h-screen flex items-center justify-center p-4 font-inter";
+    
+    if (theme === 'dark') {
+      return `${baseClasses} bg-zinc-900 text-zinc-100`;
+    } else {
+      return `${baseClasses} hero-gradient text-zinc-800`;
+    }
+  };
+  
+  const getCardClasses = () => {
+    const baseClasses = "w-full max-w-md rounded-xl shadow-sm";
+    
+    if (theme === 'dark') {
+      if (template === 'branded') {
+        return `${baseClasses} bg-zinc-800 border-2 border-amber-500`;
+      }
+      return `${baseClasses} bg-zinc-800 border border-zinc-700`;
+    } else {
+      if (template === 'branded') {
+        return `${baseClasses} bg-white border-2 border-amber-400`;
+      }
+      return `${baseClasses} bg-white border border-zinc-200`;
+    }
+  };
 
   if (isLoading) {
     return (
-      <div className={`min-h-screen flex items-center justify-center ${themeClasses} p-4 font-inter`}>
+      <div className={getContainerClasses()}>
         <div className="animate-spin rounded-full h-8 w-8 border-2 border-t-amber-500"></div>
       </div>
     );
@@ -84,8 +108,8 @@ const Feedback = () => {
 
   if (error || !username) {
     return (
-      <div className={`min-h-screen flex items-center justify-center ${themeClasses} p-4 font-inter`}>
-        <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-white border border-zinc-200'} rounded-lg shadow-sm`}>
+      <div className={getContainerClasses()}>
+        <Card className={getCardClasses()}>
           <CardContent className="p-6">
             <div className="text-center">
               <h2 className={`text-xl font-medium mb-2 ${theme === 'dark' ? 'text-zinc-100' : 'text-zinc-800'}`}>
@@ -104,32 +128,61 @@ const Feedback = () => {
   // For this demo, we're simulating successful user fetch
   // In a real implementation, we would use the actual user data
   const displayUser = user || { username };
+  
+  // Render different header based on template
+  const renderHeader = () => {
+    if (template === 'minimal') {
+      return null; // Minimal template has no header
+    }
+    
+    if (template === 'branded') {
+      return (
+        <div className="text-center mb-4">
+          <div className="flex justify-center items-center mb-2">
+            <div className="h-1 w-16 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full" />
+            <span className={`mx-2 font-medium ${theme === 'dark' ? 'text-amber-400' : 'text-amber-500'}`}>
+              FeedbackGrove
+            </span>
+            <div className="h-1 w-16 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full" />
+          </div>
+          <h2 className={`text-lg font-medium ${theme === 'dark' ? 'text-zinc-100' : 'text-zinc-800'}`}>
+            @{displayUser.username}
+          </h2>
+        </div>
+      );
+    }
+    
+    // Standard template header
+    return (
+      <div className="text-center mb-6">
+        <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+          {displayUser.avatar_url ? (
+            <img 
+              src={displayUser.avatar_url} 
+              alt={`${displayUser.username}'s avatar`} 
+              className="rounded-full w-14 h-14"
+            />
+          ) : (
+            <span className="text-xl font-semibold text-amber-600">
+              {displayUser.username.charAt(0).toUpperCase()}
+            </span>
+          )}
+        </div>
+        <h2 className={`text-xl font-medium mb-1 ${theme === 'dark' ? 'text-zinc-100' : 'text-zinc-800'}`}>
+          Send feedback to @{displayUser.username}
+        </h2>
+        <p className={`text-sm ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+          Your feedback will remain 100% anonymous
+        </p>
+      </div>
+    );
+  };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center ${themeClasses} p-4 font-inter`}>
-      <Card className={`w-full max-w-md ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-white border border-zinc-200'} rounded-xl shadow-sm`}>
+    <div className={getContainerClasses()}>
+      <Card className={getCardClasses()}>
         <CardContent className="p-6">
-          <div className="text-center mb-6">
-            <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              {displayUser.avatar_url ? (
-                <img 
-                  src={displayUser.avatar_url} 
-                  alt={`${displayUser.username}'s avatar`} 
-                  className="rounded-full w-14 h-14"
-                />
-              ) : (
-                <span className="text-xl font-semibold text-amber-600">
-                  {displayUser.username.charAt(0).toUpperCase()}
-                </span>
-              )}
-            </div>
-            <h2 className={`text-xl font-medium mb-1 ${theme === 'dark' ? 'text-zinc-100' : 'text-zinc-800'}`}>
-              Send feedback to @{displayUser.username}
-            </h2>
-            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-500'}`}>
-              Your feedback will remain 100% anonymous
-            </p>
-          </div>
+          {renderHeader()}
           
           <FeedbackForm username={displayUser.username} />
           
@@ -171,7 +224,7 @@ const Feedback = () => {
             </div>
             
             <p className={`text-xs mt-3 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
-              Powered by <a href="/" className="text-amber-500 hover:text-amber-600">FeedbackWave</a>
+              Powered by <a href="/" className="text-amber-500 hover:text-amber-600">FeedbackGrove</a>
             </p>
           </div>
         </CardContent>

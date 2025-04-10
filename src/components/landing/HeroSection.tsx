@@ -1,3 +1,4 @@
+
 import { Sparkles, MessageSquare, Copy, CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -6,28 +7,32 @@ import { motion } from "framer-motion";
 const HeroSection = () => {
   return (
     <section className="pt-20 pb-24 md:pt-24 md:pb-32 relative overflow-hidden bg-gradient-to-br from-white via-amber-50/30 to-blue-50/40">
-           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-100/20 via-transparent to-blue-100/10 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-100/20 via-transparent to-blue-100/10 pointer-events-none"></div>
 
       {/* Announcement banner similar to dub.co */}
       <div className="flex justify-center mb-16">
         <Link to="/features" className="inline-flex items-center px-4 py-2 bg-white rounded-full border border-zinc-200 text-sm hover:bg-zinc-50 transition-colors">
-        Anonymous feedback collection made simple          
-        <ArrowRight className="ml-2 h-4 w-4" />
+          Anonymous feedback collection made simple          
+          <ArrowRight className="ml-2 h-4 w-4" />
         </Link>
       </div>
       
       <div className="container mx-auto px-4">
         {/* Main headline area */}
         <div className="text-center mb-12">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-semibold text-black mb-8 tracking-tight"
+            className="mb-8"
           >
-Turn Feedback into Your            <br className="hidden md:block" />
-Next  Big<span className="text-amber-500"> Breakthrough</span>
-          </motion.h1>
+            <h1 className="text-4xl md:text-5xl font-semibold text-black tracking-tight">
+              Anonymous Feedback
+            </h1>
+            <h2 className="text-4xl md:text-5xl font-semibold text-amber-500 tracking-tight">
+              With Superpowers
+            </h2>
+          </motion.div>
           
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -35,7 +40,7 @@ Next  Big<span className="text-amber-500"> Breakthrough</span>
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-md text-zinc-600 mb-10 mx-auto max-w-2xl"
           >
-           FeedbackGrove is the ultimate feedback tool built by founders, for founders. Collect anonymous, real-time feedback from your users.
+            FeedbackGrove is the ultimate feedback tool built by founders, for founders. Collect anonymous, real-time feedback from your users.
           </motion.p>
         </div>
         
@@ -71,7 +76,7 @@ Next  Big<span className="text-amber-500"> Breakthrough</span>
                 <input 
                   type="text" 
                   className="flex-1 bg-transparent outline-none text-sm px-1 py-1 text-zinc-800" 
-                  defaultValue="app.feedbackwave.co/register"
+                  defaultValue="app.feedbackgrove.co/register"
                   readOnly
                 />
                 <button className="p-1 hover:bg-zinc-100 rounded-md">
@@ -124,7 +129,7 @@ Next  Big<span className="text-amber-500"> Breakthrough</span>
           <div className="text-center text-sm text-zinc-600">
             Want to collect feedback, analyze it, or measure its impact? 
             <Link to="/register" className="text-amber-600 hover:text-amber-700 ml-1">
-              Create a free account on FeedbackWave
+              Create a free account on FeedbackGrove
             </Link> to get started.
           </div>
         </motion.div>
