@@ -23,20 +23,19 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-5xl md:text-6xl font-semibold text-black mb-6 tracking-tight"
+            className="text-4xl md:text-6xl font-semibold text-black mb-8 tracking-tight"
           >
-            Anonymous Feedback <br className="hidden md:block" />
-            With <span className="text-amber-500">Superpowers</span>
+Turn Feedback into Your            <br className="hidden md:block" />
+Next  Big<span className="text-amber-500"> Breakthrough</span>
           </motion.h1>
           
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-zinc-600 mb-10 mx-auto max-w-2xl"
+            className="text-md text-zinc-600 mb-10 mx-auto max-w-2xl"
           >
-            FeedbackWave is the open-source feedback management infrastructure 
-            for modern teams.
+           FeedbackWave is the ultimate feedback tool built by founders, for founders. Collect anonymous, real-time feedback from your users.
           </motion.p>
         </div>
         
