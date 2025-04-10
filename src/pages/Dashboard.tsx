@@ -77,7 +77,7 @@ const Dashboard = () => {
     );
   }
 
-  if (!user) {
+  if (user) {
     return <Navigate to="/login" />;
   }
 
