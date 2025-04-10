@@ -9,6 +9,9 @@ export interface User {
   email: string;
   username: string;
   is_premium: boolean;
+  created_at?: string;
+  last_login?: string;
+  profile_image?: string;
 }
 
 interface AuthContextType {
@@ -18,6 +21,8 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, username: string, password: string) => Promise<void>;
   logout: () => void;
+  updateProfile: (data: Partial<User>) => Promise<void>;
+  refreshSession: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,15 +40,23 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Check if the user is authenticated on initial load
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await api.get("/auth/me");
-        if (response.status === 200) {
-          setUser(response.data);
+        const token = localStorage.getItem('authToken');
+        
+        if (token) {
+          api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          const response = await api.get("/auth/me");
+          if (response.status === 200) {
+            setUser(response.data);
+          }
         }
       } catch (error) {
         console.error("Not authenticated", error);
+        localStorage.removeItem('authToken');
+        delete api.defaults.headers.common['Authorization'];
       } finally {
         setIsLoading(false);
       }
@@ -55,10 +68,14 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      // In a real implementation, this would make an API call
-      // For now, we'll simulate a successful login
       const response = await api.post("/auth/login", { email, password });
-      setUser(response.data);
+      const { user, token } = response.data;
+      
+      // Store the token
+      localStorage.setItem('authToken', token);
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      
+      setUser(user);
       toast.success("Successfully logged in!");
       navigate("/dashboard");
     } catch (error) {
@@ -73,14 +90,20 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const register = async (email: string, username: string, password: string) => {
     setIsLoading(true);
     try {
-      // In a real implementation, this would make an API call
       const response = await api.post("/auth/register", { email, username, password });
-      setUser(response.data);
+      const { user, token } = response.data;
+      
+      // Store the token
+      localStorage.setItem('authToken', token);
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      
+      setUser(user);
       toast.success("Account created successfully!");
       navigate("/dashboard");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Registration failed", error);
-      toast.error("Registration failed. Please try again.");
+      const errorMessage = error.response?.data?.message || "Registration failed. Please try again.";
+      toast.error(errorMessage);
       throw error;
     } finally {
       setIsLoading(false);
@@ -90,11 +113,47 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const logout = async () => {
     try {
       await api.post("/auth/logout");
+      localStorage.removeItem('authToken');
+      delete api.defaults.headers.common['Authorization'];
       setUser(null);
       toast.success("Successfully logged out!");
       navigate("/");
     } catch (error) {
       console.error("Logout failed", error);
+      // Still remove token and user data on client side even if API call fails
+      localStorage.removeItem('authToken');
+      delete api.defaults.headers.common['Authorization'];
+      setUser(null);
+      navigate("/");
+    }
+  };
+
+  const updateProfile = async (data: Partial<User>) => {
+    setIsLoading(true);
+    try {
+      const response = await api.put("/auth/profile", data);
+      setUser(response.data);
+      toast.success("Profile updated successfully!");
+    } catch (error) {
+      console.error("Profile update failed", error);
+      toast.error("Failed to update profile. Please try again.");
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const refreshSession = async () => {
+    try {
+      const response = await api.get("/auth/me");
+      setUser(response.data);
+    } catch (error) {
+      console.error("Session refresh failed", error);
+      // If session refresh fails, log the user out
+      localStorage.removeItem('authToken');
+      delete api.defaults.headers.common['Authorization'];
+      setUser(null);
+      navigate("/login");
     }
   };
 
@@ -106,7 +165,9 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         isLoading,
         login,
         register,
-        logout
+        logout,
+        updateProfile,
+        refreshSession
       }}
     >
       {children}

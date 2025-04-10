@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import DashboardStats from "@/components/dashboard/DashboardStats";
 import DashboardTabs from "@/components/dashboard/DashboardTabs";
 import DashboardGuide from "@/components/dashboard/DashboardGuide";
+import FeedbackWidgetStats from "@/components/dashboard/FeedbackWidgetStats";
 
 interface FeedbackItem {
   id: string;
@@ -26,7 +27,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchFeedback = async () => {
-      if (!isAuthenticated) return;
+      if (!user) return;
       
       try {
         setIsLoadingFeedback(true);
@@ -39,8 +40,10 @@ const Dashboard = () => {
       }
     };
 
-    fetchFeedback();
-  }, [isAuthenticated]);
+    if (user) {
+      fetchFeedback();
+    }
+  }, [user]);
 
   const handleDeleteFeedback = async (id: string) => {
     try {
@@ -74,7 +77,7 @@ const Dashboard = () => {
     );
   }
 
-  if (isAuthenticated) {
+  if (!user) {
     return <Navigate to="/login" />;
   }
 
@@ -83,12 +86,20 @@ const Dashboard = () => {
       <Navbar />
       
       <div className="max-w-screen-lg mx-auto px-4 sm:px-6 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-semibold text-zinc-900">Dashboard</h1>
-          <Button onClick={copyFeedbackLink} variant="outline" className="flex items-center gap-2 border-zinc-200">
-            <LinkIcon size={14} />
-            <span>Copy feedback link</span>
-          </Button>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+          <div>
+            <h1 className="text-2xl font-semibold text-zinc-900">Dashboard</h1>
+            <p className="text-zinc-500 text-sm">Manage your feedback and widgets</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button onClick={copyFeedbackLink} variant="outline" size="sm" className="flex items-center gap-2 border-zinc-200">
+              <LinkIcon size={14} />
+              <span>Copy feedback link</span>
+            </Button>
+            <Button onClick={() => window.location.href = '/templates-library'} className="bg-black hover:bg-zinc-800 text-white" size="sm">
+              Create Widget
+            </Button>
+          </div>
         </div>
         
         <DashboardStats 
@@ -97,21 +108,23 @@ const Dashboard = () => {
           user={user}
         />
         
+        <FeedbackWidgetStats isPremium={!!user.is_premium} />
+        
         <div className="grid md:grid-cols-3 gap-6">
           <div className="md:col-span-2">
             <DashboardTabs
               isLoading={isLoadingFeedback}
               feedbackItems={feedbackItems}
-              username={user?.username || ""}
-              isPremium={!!user?.is_premium}
+              username={user.username}
+              isPremium={!!user.is_premium}
               onDeleteFeedback={handleDeleteFeedback}
             />
             
-            <EmbedCodeGenerator username={user?.username || ""} />
+            <EmbedCodeGenerator username={user.username} />
           </div>
           
           <div>
-            {!user?.is_premium && <PremiumUpsell />}
+            {!user.is_premium && <PremiumUpsell />}
             <DashboardGuide />
           </div>
         </div>
