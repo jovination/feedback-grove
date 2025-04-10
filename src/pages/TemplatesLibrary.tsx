@@ -9,6 +9,7 @@ import { Search, Star, Heart, ThumbsUp, SmilePlus, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 
+// Expanded Template interface to match WidgetTemplates page needs
 interface Template {
   id: string;
   name: string;
@@ -20,6 +21,9 @@ interface Template {
   isPremium: boolean;
   color: "green" | "blue" | "amber" | "purple" | "red" | "indigo";
   ratingType: "numbers" | "stars" | "emojis" | "thumbs" | "hearts";
+  // Fields that match WidgetTemplates requirements
+  templateType: "standard" | "minimal" | "branded";
+  theme: "light" | "dark" | "minimal" | "branded";
 }
 
 const TemplatesLibrary = () => {
@@ -38,7 +42,9 @@ const TemplatesLibrary = () => {
       imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
       isPremium: false,
       color: "green",
-      ratingType: "numbers"
+      ratingType: "numbers",
+      templateType: "standard",
+      theme: "light"
     },
     {
       id: "customer-satisfaction",
@@ -50,7 +56,9 @@ const TemplatesLibrary = () => {
       imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
       isPremium: false,
       color: "blue",
-      ratingType: "stars"
+      ratingType: "stars",
+      templateType: "minimal",
+      theme: "dark"
     },
     {
       id: "csat",
@@ -62,7 +70,9 @@ const TemplatesLibrary = () => {
       imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
       isPremium: false,
       color: "amber",
-      ratingType: "emojis"
+      ratingType: "emojis",
+      templateType: "branded",
+      theme: "branded"
     },
     {
       id: "customer-support",
@@ -74,7 +84,9 @@ const TemplatesLibrary = () => {
       imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
       isPremium: true,
       color: "purple",
-      ratingType: "thumbs"
+      ratingType: "thumbs",
+      templateType: "standard",
+      theme: "minimal"
     },
     {
       id: "new-users",
@@ -86,7 +98,9 @@ const TemplatesLibrary = () => {
       imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
       isPremium: true,
       color: "red",
-      ratingType: "hearts"
+      ratingType: "hearts",
+      templateType: "minimal",
+      theme: "light"
     },
     {
       id: "product-survey",
@@ -98,7 +112,9 @@ const TemplatesLibrary = () => {
       imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
       isPremium: false,
       color: "indigo",
-      ratingType: "numbers"
+      ratingType: "numbers",
+      templateType: "branded",
+      theme: "dark"
     },
     {
       id: "customer-needs",
@@ -110,7 +126,9 @@ const TemplatesLibrary = () => {
       imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
       isPremium: true,
       color: "green",
-      ratingType: "stars"
+      ratingType: "stars",
+      templateType: "standard",
+      theme: "branded"
     },
     {
       id: "customer-motivation",
@@ -122,7 +140,9 @@ const TemplatesLibrary = () => {
       imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
       isPremium: false,
       color: "blue",
-      ratingType: "emojis"
+      ratingType: "emojis",
+      templateType: "minimal",
+      theme: "minimal"
     },
     {
       id: "market-fit",
@@ -134,7 +154,9 @@ const TemplatesLibrary = () => {
       imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
       isPremium: true,
       color: "amber",
-      ratingType: "thumbs"
+      ratingType: "thumbs",
+      templateType: "branded",
+      theme: "light"
     },
     {
       id: "feature-release",
@@ -146,7 +168,9 @@ const TemplatesLibrary = () => {
       imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
       isPremium: true,
       color: "purple",
-      ratingType: "hearts"
+      ratingType: "hearts",
+      templateType: "standard",
+      theme: "dark"
     }
   ];
 
@@ -164,9 +188,11 @@ const TemplatesLibrary = () => {
       return;
     }
     
-    // Store selected template in local storage
+    // Store complete template data in local storage
     localStorage.setItem('selectedTemplate', JSON.stringify(template));
-    navigate('/widget-templates');
+    
+    // Navigate to widget-templates with query parameters
+    navigate(`/widget-templates?template=${template.templateType}&theme=${template.theme}&id=${template.id}`);
   };
 
   const renderRatingOptions = (template: Template) => {
@@ -281,6 +307,9 @@ const TemplatesLibrary = () => {
                       <div className={`bg-${template.color}-50 rounded-full p-3`}>
                         <X className={`h-5 w-5 text-${template.color}-600`} />
                       </div>
+                      <Badge className="bg-zinc-100 text-zinc-600 text-xs font-normal px-2 py-1 rounded-full">
+                        {template.templateType}
+                      </Badge>
                     </div>
                     <div className="text-sm mb-5 text-zinc-600">
                       <div className="line-clamp-2 h-10 font-medium">
