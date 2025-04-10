@@ -23,7 +23,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-6xl font-semibold text-black mb-8 tracking-tight"
+            className="text-4xl md:text-5xl font-semibold text-black mb-8 tracking-tight"
           >
 Turn Feedback into Your            <br className="hidden md:block" />
 Next  Big<span className="text-amber-500"> Breakthrough</span>
