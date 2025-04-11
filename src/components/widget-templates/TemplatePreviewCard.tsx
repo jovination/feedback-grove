@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Eye } from "lucide-react";
+import { Eye, Monitor, Moon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TemplatePreview from "./TemplatePreview";
 
@@ -19,9 +19,12 @@ const TemplatePreviewCard = ({
   navigateToPreview
 }: TemplatePreviewCardProps) => {
   return (
-    <div className="bg-zinc-50 rounded-lg p-4 border border-zinc-100">
+    <div className="bg-zinc-50 rounded-xl p-5 border border-zinc-200 shadow-sm">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-        <h3 className="font-medium text-zinc-800">Preview</h3>
+        <h3 className="font-medium text-zinc-800 flex items-center">
+          <Monitor size={16} className="mr-2 text-amber-500" />
+          Preview
+        </h3>
         <div className="mt-2 sm:mt-0">
           <Tabs
             defaultValue="light"
@@ -29,32 +32,35 @@ const TemplatePreviewCard = ({
             onValueChange={setSelectedTheme}
             className="w-full"
           >
-            <TabsList className="bg-zinc-100 p-0.5">
+            <TabsList className="bg-zinc-100 p-0.5 h-8">
               <TabsTrigger
                 value="light"
-                className="text-xs py-1"
+                className="text-xs py-1 flex items-center gap-1.5 data-[state=active]:bg-white"
               >
-                Light
+                <span className="hidden sm:inline">Light</span>
               </TabsTrigger>
               <TabsTrigger
                 value="dark"
-                className="text-xs py-1"
+                className="text-xs py-1 flex items-center gap-1.5 data-[state=active]:bg-zinc-800 data-[state=active]:text-white"
               >
-                Dark
+                <Moon size={12} className="sm:mr-1" />
+                <span className="hidden sm:inline">Dark</span>
               </TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
       </div>
       
-      <div className="bg-white rounded-lg border border-zinc-200 p-4">
-        <TemplatePreview templateName={selectedTemplate} theme={selectedTheme} />
+      <div className="bg-white rounded-lg border border-zinc-200 p-5 mb-3 shadow-sm">
+        <div className="max-w-md mx-auto">
+          <TemplatePreview templateName={selectedTemplate} theme={selectedTheme} />
+        </div>
       </div>
       
-      <div className="mt-4 flex justify-end">
+      <div className="flex justify-end">
         <Button
           variant="outline"
-          className="text-sm"
+          className="text-sm hover:bg-zinc-50"
           onClick={navigateToPreview}
           size="sm"
         >
