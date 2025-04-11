@@ -1,0 +1,158 @@
+
+# FeedbackWave Backend Requirements
+
+## Technology Stack
+- FastAPI: For building the RESTful API
+- PostgreSQL: For database storage
+- SQLAlchemy: For ORM and database migrations
+- Pydantic: For data validation and settings management
+- Alembic: For database migrations
+- Python 3.8+: As the backend programming language
+- JWT: For authentication
+- CORS middleware: For handling cross-origin requests
+
+## Setup Instructions
+
+### 1. Environment Setup
+```bash
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install fastapi uvicorn sqlalchemy psycopg2-binary pydantic alembic python-jose python-multipart bcrypt python-dotenv pytest httpx
+
+# Initialize Alembic for migrations
+alembic init migrations
+```
+
+### 2. Database Setup
+```bash
+# Create PostgreSQL database
+# Replace 'username', 'password', and 'dbname' with your own values
+createdb -U username feedbackwave_db
+
+# Configure database connection in .env file
+# DATABASE_URL=postgresql://username:password@localhost/feedbackwave_db
+```
+
+### 3. Project Structure
+```
+backend/
+├── alembic.ini
+├── migrations/
+│   └── ...
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── dependencies.py
+│   ├── config.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── user.py
+│   │   └── feedback.py
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   └── feedback.py
+│   ├── crud/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── user.py
+│   │   └── feedback.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── dependencies.py
+│   │   ├── endpoints/
+│   │   │   ├── __init__.py
+│   │   │   ├── auth.py
+│   │   │   ├── users.py
+│   │   │   └── feedback.py
+│   │   └── router.py
+│   └── utils/
+│       ├── __init__.py
+│       ├── auth.py
+│       └── email.py
+└── tests/
+    ├── __init__.py
+    ├── test_auth.py
+    ├── test_users.py
+    └── test_feedback.py
+```
+
+## Database Schema
+
+### Users Table
+- id: UUID (Primary Key)
+- email: String (Unique, Index)
+- username: String (Unique, Index)
+- hashed_password: String
+- is_premium: Boolean (Default: False)
+- created_at: DateTime
+- last_login: DateTime
+- profile_image: String (Optional)
+
+### Feedback Table
+- id: UUID (Primary Key)
+- message: Text
+- created_at: DateTime
+- user_id: UUID (Foreign Key to Users)
+- is_read: Boolean (Default: False)
+- ip_address: String (Optional)
+- metadata: JSON (Optional)
+
+### Widgets Table
+- id: UUID (Primary Key)
+- name: String
+- type: String
+- user_id: UUID (Foreign Key to Users)
+- settings: JSON
+- created_at: DateTime
+- is_active: Boolean (Default: True)
+- theme: String (Default: 'light')
+
+## API Endpoints
+
+### Authentication
+- POST /api/auth/register - Register new user
+- POST /api/auth/login - User login (returns JWT token)
+- POST /api/auth/logout - User logout
+- GET /api/auth/me - Get current user info
+
+### Users
+- GET /api/users/{username} - Get user profile by username
+- PUT /api/users/profile - Update current user profile
+- PATCH /api/users/premium - Update premium status
+
+### Feedback
+- GET /api/feedback - List feedback for current user
+- POST /api/feedback/{username} - Submit feedback to a user
+- DELETE /api/feedback/{id} - Delete specific feedback
+- PATCH /api/feedback/{id}/read - Mark feedback as read
+
+### Widgets
+- GET /api/widgets - List widgets for current user
+- POST /api/widgets - Create a new widget
+- PUT /api/widgets/{id} - Update widget
+- DELETE /api/widgets/{id} - Delete widget
+- GET /api/widgets/{id}/stats - Get widget statistics
+
+## Implementation Notes
+
+### Security
+- Use bcrypt for password hashing
+- JWT tokens with expiration for authentication
+- Proper CORS configuration
+- SQL injection prevention with SQLAlchemy
+
+### Deployment
+- Docker container support
+- Environment variable configuration
+- Database migration scripts
+- Health check endpoint
+
+### Monitoring
+- Logging configuration
+- Error tracking
+- Performance metrics

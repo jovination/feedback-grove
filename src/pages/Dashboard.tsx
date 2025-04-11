@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import EmbedCodeGenerator from "@/components/EmbedCodeGenerator";
 import PremiumUpsell from "@/components/PremiumUpsell";
 import { Link as LinkIcon, Settings, LayoutDashboard } from "lucide-react";
-import { api } from "@/lib/api";
+import { feedbackApi } from "@/lib/api";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -36,7 +36,7 @@ const Dashboard = () => {
       
       try {
         setIsLoadingFeedback(true);
-        const response = await api.get("/feedback");
+        const response = await feedbackApi.getFeedback();
         setFeedbackItems(response.data);
       } catch (error) {
         console.error("Error fetching feedback:", error);
@@ -52,7 +52,7 @@ const Dashboard = () => {
 
   const handleDeleteFeedback = async (id: string) => {
     try {
-      await api.delete(`/feedback/${id}`);
+      await feedbackApi.deleteFeedback(id);
       setFeedbackItems(feedbackItems.filter(item => item.id !== id));
       toast.success("Feedback deleted successfully");
     } catch (error) {
@@ -69,6 +69,7 @@ const Dashboard = () => {
     toast.success("Feedback link copied to clipboard!");
   };
 
+  // Show loading state
   if (isLoading) {
     return (
       <div className="min-h-screen bg-zinc-50 font-inter">
@@ -83,10 +84,11 @@ const Dashboard = () => {
   }
 
   // Redirect to login if not authenticated
-  if (!user) {
+  if (!isAuthenticated || !user) {
     return <Navigate to="/login" />;
   }
 
+  // Now we're sure user is not null
   return (
     <div className="min-h-screen bg-zinc-50 font-inter">
       <Navbar />
@@ -131,7 +133,7 @@ const Dashboard = () => {
               user={user}
             />
             
-            <FeedbackWidgetStats isPremium={!!user?.is_premium} />
+            <FeedbackWidgetStats isPremium={user.is_premium} />
             
             <div className="grid md:grid-cols-3 gap-6">
               <div className="md:col-span-2">
@@ -139,7 +141,7 @@ const Dashboard = () => {
                   isLoading={isLoadingFeedback}
                   feedbackItems={feedbackItems}
                   username={user.username}
-                  isPremium={!!user.is_premium}
+                  isPremium={user.is_premium}
                   onDeleteFeedback={handleDeleteFeedback}
                 />
                 

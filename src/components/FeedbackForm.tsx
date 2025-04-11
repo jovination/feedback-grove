@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { api } from "@/lib/api";
+import { feedbackApi } from "@/lib/api";
 import { MessageSquare } from "lucide-react";
 
 interface FeedbackFormProps {
@@ -25,7 +25,7 @@ const FeedbackForm = ({ username }: FeedbackFormProps) => {
     setIsSubmitting(true);
     
     try {
-      await api.post(`/feedback/${username}`, { message });
+      await feedbackApi.submitFeedback(username, message);
       toast.success("Feedback submitted successfully!");
       setMessage("");
     } catch (error) {
