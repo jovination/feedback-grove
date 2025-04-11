@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
-import { Search, Star, Heart, ThumbsUp, SmilePlus, X } from "lucide-react";
+import { Search, Star, Heart, ThumbsUp, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 
@@ -21,12 +22,15 @@ interface Template {
   isPremium: boolean;
   color: "green" | "blue" | "amber" | "purple" | "red" | "indigo";
   ratingType: "numbers" | "stars" | "emojis" | "thumbs" | "hearts";
-  // Fields that match WidgetTemplates requirements
   templateType: "standard" | "minimal" | "branded";
   theme: "light" | "dark" | "minimal" | "branded";
 }
 
-const TemplatesLibrary = () => {
+interface TemplatesLibraryProps {
+  embedded?: boolean;
+}
+
+const TemplatesLibrary = ({ embedded = false }: TemplatesLibraryProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -257,10 +261,10 @@ const TemplatesLibrary = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white font-inter text-black">
-      <Navbar />
+    <div className={`${!embedded ? "min-h-screen bg-white font-inter text-black" : ""}`}>
+      {!embedded && <Navbar />}
       
-      <div className="max-w-screen-lg mx-auto px-4 sm:px-6 py-12">
+      <div className={`${embedded ? "" : "max-w-screen-lg mx-auto px-4 sm:px-6 py-12"}`}>
         <div className="flex flex-col items-center text-center mb-10">
           <div className="mb-4">
             <span className="inline-block text-amber-600">
@@ -340,15 +344,17 @@ const TemplatesLibrary = () => {
           </div>
         </div>
         
-        <div className="flex justify-center mt-10">
-          <Button 
-            onClick={() => navigate('/dashboard')}
-            variant="outline" 
-            className="border-zinc-300 text-zinc-700 hover:bg-zinc-50 rounded-full px-6 py-6"
-          >
-            Back to Dashboard
-          </Button>
-        </div>
+        {!embedded && (
+          <div className="flex justify-center mt-10">
+            <Button 
+              onClick={() => navigate('/dashboard')}
+              variant="outline" 
+              className="border-zinc-300 text-zinc-700 hover:bg-zinc-50 rounded-full px-6 py-6"
+            >
+              Back to Dashboard
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

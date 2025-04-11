@@ -1,18 +1,21 @@
 
 import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import EmbedCodeGenerator from "@/components/EmbedCodeGenerator";
 import PremiumUpsell from "@/components/PremiumUpsell";
-import { Link as LinkIcon } from "lucide-react";
+import { Link as LinkIcon, Settings, LayoutDashboard } from "lucide-react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DashboardStats from "@/components/dashboard/DashboardStats";
 import DashboardTabs from "@/components/dashboard/DashboardTabs";
 import DashboardGuide from "@/components/dashboard/DashboardGuide";
 import FeedbackWidgetStats from "@/components/dashboard/FeedbackWidgetStats";
+import UserSettings from "@/components/dashboard/UserSettings";
+import TemplatesLibraryPage from "@/pages/TemplatesLibrary";
 
 interface FeedbackItem {
   id: string;
@@ -24,6 +27,8 @@ const Dashboard = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
   const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([]);
   const [isLoadingFeedback, setIsLoadingFeedback] = useState(true);
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFeedback = async () => {
@@ -96,38 +101,74 @@ const Dashboard = () => {
               <LinkIcon size={14} />
               <span>Copy feedback link</span>
             </Button>
-            <Button onClick={() => window.location.href = '/templates-library'} className="bg-black hover:bg-zinc-800 text-white" size="sm">
+            <Button onClick={() => setActiveTab("templates")} className="bg-amber-500 hover:bg-amber-600 text-white" size="sm">
               Create Widget
             </Button>
           </div>
         </div>
         
-        <DashboardStats 
-          feedbackCount={feedbackItems.length}
-          lastFeedbackDate={feedbackItems.length > 0 ? feedbackItems[0].created_at : null}
-          user={user}
-        />
-        
-        <FeedbackWidgetStats isPremium={!!user.is_premium} />
-        
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="md:col-span-2">
-            <DashboardTabs
-              isLoading={isLoadingFeedback}
-              feedbackItems={feedbackItems}
-              username={user.username}
-              isPremium={!!user.is_premium}
-              onDeleteFeedback={handleDeleteFeedback}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mb-6">
+          <TabsList className="grid grid-cols-3 mb-6">
+            <TabsTrigger value="dashboard" className="flex items-center gap-2">
+              <LayoutDashboard size={16} />
+              <span>Dashboard</span>
+            </TabsTrigger>
+            <TabsTrigger value="templates" className="flex items-center gap-2">
+              <LinkIcon size={16} />
+              <span>Templates</span>
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Settings size={16} />
+              <span>Settings</span>
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="dashboard" className="space-y-4">
+            <DashboardStats 
+              feedbackCount={feedbackItems.length}
+              lastFeedbackDate={feedbackItems.length > 0 ? feedbackItems[0].created_at : null}
+              user={user}
             />
             
-            <EmbedCodeGenerator username={user.username} />
-          </div>
+            <FeedbackWidgetStats isPremium={!!user?.is_premium} />
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="md:col-span-2">
+                <DashboardTabs
+                  isLoading={isLoadingFeedback}
+                  feedbackItems={feedbackItems}
+                  username={user.username}
+                  isPremium={!!user?.is_premium}
+                  onDeleteFeedback={handleDeleteFeedback}
+                />
+                
+                <EmbedCodeGenerator username={user.username} />
+              </div>
+              
+              <div>
+                {!user.is_premium && <PremiumUpsell />}
+                <DashboardGuide />
+              </div>
+            </div>
+          </TabsContent>
           
-          <div>
-            {!user.is_premium && <PremiumUpsell />}
-            <DashboardGuide />
-          </div>
-        </div>
+          <TabsContent value="templates">
+            <div className="bg-white rounded-lg border border-zinc-200 p-6 mb-6">
+              <TemplatesLibraryPage embedded={true} />
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="settings">
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="md:col-span-2">
+                <UserSettings />
+              </div>
+              <div>
+                {!user.is_premium && <PremiumUpsell />}
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
