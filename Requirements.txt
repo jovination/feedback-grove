@@ -1,158 +1,118 @@
 
-# FeedbackWave Backend Requirements
+# FeedbackWave Backend Implementation Guide
 
-## Technology Stack
-- FastAPI: For building the RESTful API
-- PostgreSQL: For database storage
-- SQLAlchemy: For ORM and database migrations
-- Pydantic: For data validation and settings management
-- Alembic: For database migrations
-- Python 3.8+: As the backend programming language
-- JWT: For authentication
-- CORS middleware: For handling cross-origin requests
+## Completed Components
+- Database models for Users, Feedback, and Widgets
+- Basic CRUD operations for all models
+- Authentication endpoints (register, login, logout, me)
+- Feedback endpoints (list, create, delete, mark as read)
+- Widget endpoints (list, create, update, delete, stats)
+- JWT-based authentication
+- Password hashing with bcrypt
+- Database connection with SQLAlchemy
+- API routing setup
+
+## Components to Implement
+- Database migrations using Alembic
+- Configuration for environment variables (using python-dotenv)
+- User profile endpoints
+- Custom middleware for logging and error handling
 
 ## Setup Instructions
 
-### 1. Environment Setup
+1. Create a virtual environment:
 ```bash
-# Create virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install fastapi uvicorn sqlalchemy psycopg2-binary pydantic alembic python-jose python-multipart bcrypt python-dotenv pytest httpx
-
-# Initialize Alembic for migrations
-alembic init migrations
 ```
 
-### 2. Database Setup
+2. Install dependencies:
+```bash
+pip install -r backend/requirements.txt
+```
+
+3. Set up .env file in the backend directory:
+```
+DATABASE_URL=postgresql://username:password@localhost/feedbackwave_db
+SECRET_KEY=your_secret_key_here
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+CORS_ORIGINS=["http://localhost:5173", "http://localhost:3000"]
+PROJECT_NAME=FeedbackWave
+API_V1_STR=/api
+```
+
+4. Initialize the database:
 ```bash
 # Create PostgreSQL database
-# Replace 'username', 'password', and 'dbname' with your own values
-createdb -U username feedbackwave_db
+createdb -U <your_postgres_username> feedbackwave_db
 
-# Configure database connection in .env file
-# DATABASE_URL=postgresql://username:password@localhost/feedbackwave_db
+# Run migrations
+cd backend
+alembic revision --autogenerate -m "Initial migration"
+alembic upgrade head
 ```
 
-### 3. Project Structure
-```
-backend/
-├── alembic.ini
-├── migrations/
-│   └── ...
-├── app/
-│   ├── __init__.py
-│   ├── main.py
-│   ├── dependencies.py
-│   ├── config.py
-│   ├── models/
-│   │   ├── __init__.py
-│   │   ├── base.py
-│   │   ├── user.py
-│   │   └── feedback.py
-│   ├── schemas/
-│   │   ├── __init__.py
-│   │   ├── user.py
-│   │   └── feedback.py
-│   ├── crud/
-│   │   ├── __init__.py
-│   │   ├── base.py
-│   │   ├── user.py
-│   │   └── feedback.py
-│   ├── api/
-│   │   ├── __init__.py
-│   │   ├── dependencies.py
-│   │   ├── endpoints/
-│   │   │   ├── __init__.py
-│   │   │   ├── auth.py
-│   │   │   ├── users.py
-│   │   │   └── feedback.py
-│   │   └── router.py
-│   └── utils/
-│       ├── __init__.py
-│       ├── auth.py
-│       └── email.py
-└── tests/
-    ├── __init__.py
-    ├── test_auth.py
-    ├── test_users.py
-    └── test_feedback.py
+5. Start the backend server:
+```bash
+cd backend
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-## Database Schema
+## API Integration Instructions
 
-### Users Table
-- id: UUID (Primary Key)
-- email: String (Unique, Index)
-- username: String (Unique, Index)
-- hashed_password: String
-- is_premium: Boolean (Default: False)
-- created_at: DateTime
-- last_login: DateTime
-- profile_image: String (Optional)
+1. Frontend configuration:
+   - Ensure the `VITE_API_URL` environment variable is set in your frontend project
+   - For local development: `VITE_API_URL=http://localhost:8000`
+   - For production: Set to your deployed backend URL
 
-### Feedback Table
-- id: UUID (Primary Key)
-- message: Text
-- created_at: DateTime
-- user_id: UUID (Foreign Key to Users)
-- is_read: Boolean (Default: False)
-- ip_address: String (Optional)
-- metadata: JSON (Optional)
+2. The frontend is already set up with API integration in `src/lib/api.ts` with:
+   - Authentication services (register, login, logout, profile)
+   - Feedback services (get, submit, delete, mark as read)
+   - Widget services (CRUD operations)
 
-### Widgets Table
-- id: UUID (Primary Key)
-- name: String
-- type: String
-- user_id: UUID (Foreign Key to Users)
-- settings: JSON
-- created_at: DateTime
-- is_active: Boolean (Default: True)
-- theme: String (Default: 'light')
+3. Authentication flow:
+   - Backend generates JWT tokens upon successful login
+   - Frontend stores token in localStorage
+   - API requests include token in Authorization header
+   - Token expiration is handled by the API interceptor
 
-## API Endpoints
+4. CORS is configured on the backend to accept requests from specified origins
 
-### Authentication
-- POST /api/auth/register - Register new user
-- POST /api/auth/login - User login (returns JWT token)
-- POST /api/auth/logout - User logout
-- GET /api/auth/me - Get current user info
+5. Error handling:
+   - Backend returns appropriate HTTP status codes and error messages
+   - Frontend has an interceptor that handles different error types and displays toast notifications
 
-### Users
-- GET /api/users/{username} - Get user profile by username
-- PUT /api/users/profile - Update current user profile
-- PATCH /api/users/premium - Update premium status
+## Database Relationships
 
-### Feedback
-- GET /api/feedback - List feedback for current user
-- POST /api/feedback/{username} - Submit feedback to a user
-- DELETE /api/feedback/{id} - Delete specific feedback
-- PATCH /api/feedback/{id}/read - Mark feedback as read
+- User → Feedback: One-to-many (User can receive multiple feedback)
+- User → Widgets: One-to-many (User can create multiple widgets)
 
-### Widgets
-- GET /api/widgets - List widgets for current user
-- POST /api/widgets - Create a new widget
-- PUT /api/widgets/{id} - Update widget
-- DELETE /api/widgets/{id} - Delete widget
-- GET /api/widgets/{id}/stats - Get widget statistics
+## Security Considerations
 
-## Implementation Notes
+- Passwords are hashed using bcrypt
+- JWT tokens include expiration time
+- API endpoints are protected with authentication requirements
+- Database queries use parameterized statements to prevent SQL injection
+- CORS is properly configured to restrict access
 
-### Security
-- Use bcrypt for password hashing
-- JWT tokens with expiration for authentication
-- Proper CORS configuration
-- SQL injection prevention with SQLAlchemy
+## Testing
 
-### Deployment
-- Docker container support
-- Environment variable configuration
-- Database migration scripts
-- Health check endpoint
+- Run the backend tests:
+```bash
+cd backend
+pytest tests/
+```
 
-### Monitoring
-- Logging configuration
-- Error tracking
-- Performance metrics
+## Deployment
+
+For production deployment:
+1. Build the frontend:
+```bash
+npm run build
+```
+
+2. Deploy backend with proper environment variables
+3. Set up a production-grade database
+4. Configure CORS settings for production domains
+5. Use a reverse proxy (like Nginx) for the API
+
