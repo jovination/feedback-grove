@@ -82,7 +82,8 @@ const Dashboard = () => {
     );
   }
 
-  if (user) {
+  // Redirect to login if not authenticated
+  if (!user) {
     return <Navigate to="/login" />;
   }
 
@@ -138,7 +139,7 @@ const Dashboard = () => {
                   isLoading={isLoadingFeedback}
                   feedbackItems={feedbackItems}
                   username={user.username}
-                  isPremium={!!user?.is_premium}
+                  isPremium={!!user.is_premium}
                   onDeleteFeedback={handleDeleteFeedback}
                 />
                 
