@@ -116,3 +116,31 @@ npm run build
 4. Configure CORS settings for production domains
 5. Use a reverse proxy (like Nginx) for the API
 
+## Final Steps Before Launch
+
+1. Update alembic.ini with your database connection string
+2. Test all authentication flows (register, login, logout)
+3. Test feedback submission and retrieval
+4. Test widget creation and customization
+5. Verify error handling and validation
+6. Check database migrations for production deployments
+
+## Known Limitations
+
+- Rate limiting not yet implemented
+- No email verification flow for user registration
+- Basic analytics only, advanced metrics require premium subscription
+
+## Troubleshooting
+
+If experiencing database connection issues:
+1. Verify PostgreSQL is running
+2. Check DATABASE_URL format in .env file
+3. Ensure database user has correct permissions
+4. Try running `alembic current` to check migration status
+
+For API connection issues:
+1. Check CORS settings in backend/app/main.py
+2. Verify frontend VITE_API_URL is correctly set
+3. Check browser console for CORS errors
+4. Ensure authentication token is properly stored and sent in requests
