@@ -33,7 +33,7 @@ pip install -r backend/requirements.txt
 
 3. Set up .env file in the backend directory:
 ```
-DATABASE_URL=postgresql://username:password@localhost/feedbackwave_db
+DATABASE_URL=postgresql://username:password@localhost/feedbackgrove_db
 SECRET_KEY=your_secret_key_here
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 CORS_ORIGINS=["http://localhost:5173", "http://localhost:3000"]
@@ -44,7 +44,7 @@ API_V1_STR=/api
 4. Initialize the database:
 ```bash
 # Create PostgreSQL database
-createdb -U <your_postgres_username> feedbackwave_db
+createdb -U <your_postgres_username> feedbackgrove_db
 
 # Run migrations
 cd backend

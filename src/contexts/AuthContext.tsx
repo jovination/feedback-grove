@@ -96,7 +96,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
       setUser(user);
       toast.success("Account created successfully!");
       navigate("/dashboard");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Registration failed", error);
       // Error handling is done in API interceptor
       throw error;

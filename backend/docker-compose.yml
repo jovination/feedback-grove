@@ -6,9 +6,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=feedbackwave_db
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=123admin
+      - POSTGRES_DB=feedbackgrove_db
     ports:
       - "5432:5432"
 
