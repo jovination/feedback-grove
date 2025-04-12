@@ -66,18 +66,21 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
+      // Perform the login request – the backend returns the access token only.
       const response = await authApi.login(email, password);
-      const { user, token } = response.data;
+      const { access_token } = response.data;
       
       // Store the token
-      localStorage.setItem('authToken', token);
+      localStorage.setItem('authToken', access_token);
       
-      setUser(user);
+      // Fetch the current user using the token.
+      await refreshSession();
+      
       toast.success("Successfully logged in!");
       navigate("/dashboard");
     } catch (error) {
       console.error("Login failed", error);
-      // Error handling is done in API interceptor
+      // The error is handled in the API interceptor.
       throw error;
     } finally {
       setIsLoading(false);
@@ -142,12 +145,12 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
       setUser(response.data);
     } catch (error) {
       console.error("Session refresh failed", error);
-      // If session refresh fails, log the user out
       localStorage.removeItem('authToken');
       setUser(null);
       navigate("/login");
     }
   };
+  
 
   return (
     <AuthContext.Provider

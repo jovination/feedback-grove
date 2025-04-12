@@ -4,7 +4,7 @@ import { toast } from "sonner";
 // Define the base URL for the API
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-// Create an axios instance with default configuration
+// Create an axios instance
 export const api = axios.create({
   baseURL: API_URL,
   withCredentials: true,
@@ -13,7 +13,7 @@ export const api = axios.create({
   },
 });
 
-// Request interceptor for adding authorization token
+// Request interceptor to add token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("authToken");
@@ -25,7 +25,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor for handling errors
+// Response interceptor to handle errors globally
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -33,46 +33,53 @@ api.interceptors.response.use(
 
     if (response) {
       const { status, data } = response;
-      
+
       switch (status) {
         case 401:
           localStorage.removeItem("authToken");
+          toast.error("Unauthorized. Please log in again.");
           window.location.href = "/login";
           break;
-          
+
         case 403:
           toast.error("You don't have permission to access this resource.");
           break;
-          
+
         case 404:
           toast.error("The requested resource was not found.");
           break;
-          
+
         case 422:
           handleValidationError(data.detail);
           break;
-          
+
         case 429:
           toast.error("Too many requests. Please try again later.");
           break;
-          
+
         case 500:
           toast.error("An unexpected server error occurred.");
           break;
-          
+
         default:
           toast.error(data?.message || "An error occurred. Please try again.");
       }
     } else {
       toast.error("Network error. Please check your internet connection.");
     }
-    
+
     return Promise.reject(error);
   }
 );
 
-// Handle validation errors from Pydantic models
-const handleValidationError = (errors: any) => {
+interface ValidationError {
+  loc: string[];
+  msg: string;
+  type: string;
+}
+
+// Handle validation errors from backend
+const handleValidationError = (errors: ValidationError[]) => {
   if (Array.isArray(errors)) {
     errors.forEach((err) => {
       const field = err.loc?.join(".") || "Field";
@@ -83,7 +90,7 @@ const handleValidationError = (errors: any) => {
   }
 };
 
-// Authentication API endpoints
+// --- Auth API ---
 export const authApi = {
   register: (email: string, username: string, password: string) =>
     api.post("/api/auth/register", { email, username, password }),
@@ -92,8 +99,12 @@ export const authApi = {
     api.post(
       "/api/auth/login",
       new URLSearchParams({
-        username: email,  // OAuth2 spec uses 'username' field
+        grant_type: "password",
+        username: email,
         password: password,
+        scope: "",
+        client_id: "",
+        client_secret: "",
       }),
       {
         headers: {
@@ -107,7 +118,7 @@ export const authApi = {
   updateProfile: (userData: object) => api.put("/api/users/profile", userData),
 };
 
-// Feedback API endpoints
+// --- Feedback API ---
 export const feedbackApi = {
   getFeedback: () => api.get("/api/feedback"),
   submitFeedback: (username: string, message: string) =>
@@ -116,7 +127,7 @@ export const feedbackApi = {
   markAsRead: (id: string) => api.patch(`/api/feedback/${id}/read`),
 };
 
-// Widgets API endpoints
+// --- Widgets API ---
 export const widgetsApi = {
   getWidgets: () => api.get("/api/widgets"),
   createWidget: (widgetData: object) => api.post("/api/widgets", widgetData),
