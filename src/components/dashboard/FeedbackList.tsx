@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { MessageSquare, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,6 +8,12 @@ interface FeedbackItem {
   id: string;
   message: string;
   created_at: string;
+  is_read: boolean;
+  rating?: number;
+  template?: string;
+  theme?: string;
+  templateId?: string;
+  meta_data?: Record<string, unknown>;
 }
 
 interface FeedbackListProps {
@@ -61,6 +66,12 @@ const FeedbackList = ({ isLoading, items, username, onDelete }: FeedbackListProp
           id={item.id}
           message={item.message}
           created_at={item.created_at}
+          is_read={item.is_read}
+          rating={item.rating}
+          template={item.template}
+          theme={item.theme}
+          templateId={item.templateId}
+          meta_data={item.meta_data}
           onDelete={onDelete}
         />
       ))}

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import FeedbackList from "./FeedbackList";
@@ -8,6 +7,7 @@ interface FeedbackItem {
   id: string;
   message: string;
   created_at: string;
+  is_read: boolean;
 }
 
 interface DashboardTabsProps {

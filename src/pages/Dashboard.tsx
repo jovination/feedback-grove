@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -6,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import EmbedCodeGenerator from "@/components/EmbedCodeGenerator";
 import PremiumUpsell from "@/components/PremiumUpsell";
 import { Link as LinkIcon, Settings, LayoutDashboard } from "lucide-react";
-import { feedbackApi } from "@/lib/api";
+import { feedbackApi, widgetsApi } from "@/lib/api";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -23,13 +22,25 @@ interface FeedbackItem {
   created_at: string;
 }
 
+interface Widget {
+  id: string;
+  name: string;
+  type: string;
+  is_active: boolean;
+  settings: any;
+  created_at: string;
+}
+
 const Dashboard = () => {
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading: isAuthLoading } = useAuth();
   const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([]);
-  const [isLoadingFeedback, setIsLoadingFeedback] = useState(true);
+  const [widgets, setWidgets] = useState<Widget[]>([]);
+  const [isLoadingFeedback, setIsLoadingFeedback] = useState(false);
+  const [isLoadingWidgets, setIsLoadingWidgets] = useState(false);
   const [activeTab, setActiveTab] = useState("dashboard");
   const navigate = useNavigate();
 
+  // Separate effect for fetching feedback
   useEffect(() => {
     const fetchFeedback = async () => {
       if (!user) return;
@@ -40,15 +51,40 @@ const Dashboard = () => {
         setFeedbackItems(response.data);
       } catch (error) {
         console.error("Error fetching feedback:", error);
+        toast.error("Failed to load feedback");
       } finally {
         setIsLoadingFeedback(false);
       }
     };
 
-    if (user) {
+    // Only fetch if user is available and not in loading state
+    if (user && !isAuthLoading) {
       fetchFeedback();
     }
-  }, [user]);
+  }, [user, isAuthLoading]);
+
+  // Separate effect for fetching widgets
+  useEffect(() => {
+    const fetchWidgets = async () => {
+      if (!user) return;
+      
+      try {
+        setIsLoadingWidgets(true);
+        const response = await widgetsApi.getWidgets();
+        setWidgets(response.data);
+      } catch (error) {
+        console.error("Error fetching widgets:", error);
+        toast.error("Failed to load widgets");
+      } finally {
+        setIsLoadingWidgets(false);
+      }
+    };
+
+    // Only fetch if user is available and not in loading state
+    if (user && !isAuthLoading) {
+      fetchWidgets();
+    }
+  }, [user, isAuthLoading]);
 
   const handleDeleteFeedback = async (id: string) => {
     try {
@@ -61,16 +97,24 @@ const Dashboard = () => {
     }
   };
 
+  const handleConfigureWidget = (widgetId: string) => {
+    navigate(`/widget-templates?id=${widgetId}`);
+  };
+
+  const handleCreateWidget = () => {
+    navigate('/templates-library');
+  };
+
   const copyFeedbackLink = () => {
     if (!user) return;
     
-    const link = `${window.location.origin}/feedback/${user.username}`;
+    const link = `${window.location.origin}/api/feedback/${user.username}`;
     navigator.clipboard.writeText(link);
     toast.success("Feedback link copied to clipboard!");
   };
 
-  // Show loading state
-  if (isLoading) {
+  // Show loading state for the entire dashboard when auth is loading
+  if (isAuthLoading) {
     return (
       <div className="min-h-screen bg-zinc-50 font-inter">
         <Navbar />
@@ -104,7 +148,7 @@ const Dashboard = () => {
               <LinkIcon size={14} />
               <span>Copy feedback link</span>
             </Button>
-            <Button onClick={() => setActiveTab("templates")} className="bg-amber-500 hover:bg-amber-600 text-white" size="sm">
+            <Button onClick={handleCreateWidget} className="bg-amber-500 hover:bg-amber-600 text-white" size="sm">
               Create Widget
             </Button>
           </div>
@@ -133,7 +177,13 @@ const Dashboard = () => {
               user={user}
             />
             
-            <FeedbackWidgetStats isPremium={user.is_premium} />
+            <FeedbackWidgetStats 
+              isPremium={user.is_premium} 
+              widgets={widgets}
+              isLoading={isLoadingWidgets}
+              onConfigureWidget={handleConfigureWidget}
+              onCreateWidget={handleCreateWidget}
+            />
             
             <div className="grid md:grid-cols-3 gap-6">
               <div className="md:col-span-2">
@@ -164,7 +214,7 @@ const Dashboard = () => {
           <TabsContent value="settings">
             <div className="grid md:grid-cols-3 gap-6">
               <div className="md:col-span-2">
-                <UserSettings />
+                <UserSettings user={user} />
               </div>
               <div>
                 {!user.is_premium && <PremiumUpsell />}

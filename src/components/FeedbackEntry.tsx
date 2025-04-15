@@ -1,8 +1,7 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatDistanceToNow } from "date-fns";
-import { Trash2, Share2, Twitter, Facebook, Copy, Linkedin, ThumbsUp, ThumbsDown, MoreHorizontal, MessageSquare } from "lucide-react";
+import { Trash2, Share2, Twitter, Facebook, Copy, Linkedin, ThumbsUp, ThumbsDown, MoreHorizontal, MessageSquare, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { 
@@ -16,10 +15,27 @@ interface FeedbackEntryProps {
   id: string;
   message: string;
   created_at: string;
+  is_read: boolean;
+  rating?: number;
+  template?: string;
+  theme?: string;
+  templateId?: string;
+  meta_data?: Record<string, any>;
   onDelete: (id: string) => void;
 }
 
-const FeedbackEntry = ({ id, message, created_at, onDelete }: FeedbackEntryProps) => {
+const FeedbackEntry = ({ 
+  id, 
+  message, 
+  created_at, 
+  is_read,
+  rating,
+  template,
+  theme,
+  templateId,
+  meta_data,
+  onDelete 
+}: FeedbackEntryProps) => {
   const formattedDate = formatDistanceToNow(new Date(created_at), { addSuffix: true });
   const [showShareOptions, setShowShareOptions] = useState(false);
   const [isLiked, setIsLiked] = useState<boolean | null>(null);
@@ -58,6 +74,24 @@ const FeedbackEntry = ({ id, message, created_at, onDelete }: FeedbackEntryProps
       <CardContent className="p-4">
         <div className="flex justify-between items-start">
           <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              {is_read && (
+                <span className="inline-flex items-center text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                  <CheckCircle2 size={12} className="mr-1" />
+                  Read
+                </span>
+              )}
+              {rating && (
+                <span className="inline-flex items-center text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded-full">
+                  {rating} ★
+                </span>
+              )}
+              {template && (
+                <span className="inline-flex items-center text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                  {template}
+                </span>
+              )}
+            </div>
             <p className="text-zinc-800 mb-3 text-[15px] leading-relaxed">{message}</p>
             <div className="flex items-center justify-between">
               <p className="text-zinc-500 text-xs">{formattedDate}</p>

@@ -22,7 +22,10 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    console.error("Request error:", error);
+    return Promise.reject(error);
+  }
 );
 
 // Response interceptor to handle errors globally
@@ -65,6 +68,7 @@ api.interceptors.response.use(
           toast.error(data?.message || "An error occurred. Please try again.");
       }
     } else {
+      console.error("Network error:", error);
       toast.error("Network error. Please check your internet connection.");
     }
 
@@ -116,6 +120,13 @@ export const authApi = {
   logout: () => api.post("/api/auth/logout"),
   getCurrentUser: () => api.get("/api/auth/me"),
   updateProfile: (userData: object) => api.put("/api/users/profile", userData),
+};
+
+// --- Users API ---
+export const usersApi = {
+  getUser: (username: string) => api.get(`/api/users/${username}`),
+  getUserProfile: (username: string) => api.get(`/api/users/${username}/profile`),
+  searchUsers: (query: string) => api.get(`/api/users/search?q=${query}`),
 };
 
 // --- Feedback API ---

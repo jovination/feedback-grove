@@ -1,17 +1,16 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
-import { Search, Star, Heart, ThumbsUp, X } from "lucide-react";
+import { Search, Star, Heart, ThumbsUp, Award, Layout, Grid } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 
-// Expanded Template interface to match WidgetTemplates page needs
-interface Template {
+// Template interface to match both pages
+export interface Template {
   id: string;
   name: string;
   description: string;
@@ -32,6 +31,7 @@ interface TemplatesLibraryProps {
 
 const TemplatesLibrary = ({ embedded = false }: TemplatesLibraryProps) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -175,15 +175,133 @@ const TemplatesLibrary = ({ embedded = false }: TemplatesLibraryProps) => {
       ratingType: "hearts",
       templateType: "standard",
       theme: "dark"
+    },
+    {
+      id: "usability-test",
+      name: "Usability testing survey",
+      description: "Gather insights on product usability and user experience",
+      category: "Research",
+      questions: 8,
+      estimatedTime: 2,
+      imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
+      isPremium: true,
+      color: "red",
+      ratingType: "numbers",
+      templateType: "minimal",
+      theme: "branded"
+    },
+    {
+      id: "onboarding-feedback",
+      name: "Onboarding experience feedback",
+      description: "Collect feedback on your product onboarding process",
+      category: "Product",
+      questions: 5,
+      estimatedTime: 1,
+      imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
+      isPremium: false,
+      color: "indigo",
+      ratingType: "stars",
+      templateType: "branded",
+      theme: "minimal"
+    },
+    {
+      id: "nps-survey",
+      name: "Net Promoter Score (NPS) Survey",
+      description: "Measure customer loyalty and satisfaction",
+      category: "Customer",
+      questions: 3,
+      estimatedTime: 1,
+      imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
+      isPremium: false,
+      color: "green",
+      ratingType: "numbers",
+      templateType: "minimal",
+      theme: "light"
+    },
+    {
+      id: "feature-request",
+      name: "Feature request collection",
+      description: "Gather user suggestions for new features",
+      category: "Product",
+      questions: 4,
+      estimatedTime: 1,
+      imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
+      isPremium: true,
+      color: "blue",
+      ratingType: "emojis",
+      templateType: "standard",
+      theme: "dark"
+    },
+    {
+      id: "bug-report",
+      name: "Bug report collection",
+      description: "Streamline bug reporting from users",
+      category: "Support",
+      questions: 6,
+      estimatedTime: 2,
+      imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
+      isPremium: false,
+      color: "amber",
+      ratingType: "thumbs",
+      templateType: "branded",
+      theme: "branded"
+    },
+    {
+      id: "content-feedback",
+      name: "Content feedback collection",
+      description: "Get feedback on your content quality",
+      category: "Content",
+      questions: 5,
+      estimatedTime: 1,
+      imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
+      isPremium: true,
+      color: "purple",
+      ratingType: "hearts",
+      templateType: "minimal",
+      theme: "minimal"
+    },
+    {
+      id: "pricing-feedback",
+      name: "Pricing feedback survey",
+      description: "Gather insights on your pricing strategy",
+      category: "Business",
+      questions: 7,
+      estimatedTime: 2,
+      imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
+      isPremium: true,
+      color: "red",
+      ratingType: "stars",
+      templateType: "standard",
+      theme: "light"
+    },
+    {
+      id: "competitor-analysis",
+      name: "Competitor analysis survey",
+      description: "Understand how you compare to competitors",
+      category: "Research",
+      questions: 8,
+      estimatedTime: 2,
+      imageUrl: "/lovable-uploads/f5ef5e2a-4861-4fa5-810b-b2fc6ee7b457.png",
+      isPremium: true,
+      color: "indigo",
+      ratingType: "numbers",
+      templateType: "branded",
+      theme: "dark"
     }
   ];
 
+  // Get unique categories for filter
+  const categories = ["all", ...new Set(templates.map(t => t.category))];
+
   const filteredTemplates = templates.filter(template => {
-    return (
+    const matchesSearch = 
       template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       template.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      template.category.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+      template.category.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesCategory = categoryFilter === "all" || template.category === categoryFilter;
+    
+    return matchesSearch && matchesCategory;
   });
 
   const handleTemplateSelect = (template: Template) => {
@@ -215,9 +333,7 @@ const TemplatesLibrary = ({ embedded = false }: TemplatesLibraryProps) => {
         return (
           <div className="flex space-x-1">
             {[1, 2, 3, 4, 5].map((rating) => (
-              <div key={rating} className={`text-${template.color}-500`}>
-                <Star size={20} fill="currentColor" />
-              </div>
+              <Star key={rating} size={20} className={`text-${template.color}-500`} fill="currentColor" />
             ))}
           </div>
         );
@@ -234,29 +350,39 @@ const TemplatesLibrary = ({ embedded = false }: TemplatesLibraryProps) => {
       case "thumbs":
         return (
           <div className="flex space-x-6">
-            <div className={`text-${template.color}-500 transform rotate-180`}>
-              <ThumbsUp size={24} />
-            </div>
-            <div className={`text-gray-400`}>
-              <ThumbsUp size={24} />
-            </div>
-            <div className={`text-${template.color}-500`}>
-              <ThumbsUp size={24} />
-            </div>
+            <ThumbsUp size={24} className={`text-${template.color}-500 transform rotate-180`} />
+            <ThumbsUp size={24} className="text-gray-400" />
+            <ThumbsUp size={24} className={`text-${template.color}-500`} />
           </div>
         );
       case "hearts":
         return (
           <div className="flex space-x-2">
             {[1, 2, 3, 4, 5].map((rating) => (
-              <div key={rating} className={rating <= 3 ? "text-gray-300" : `text-${template.color}-500`}>
-                <Heart size={20} fill={rating <= 3 ? "none" : "currentColor"} />
-              </div>
+              <Heart 
+                key={rating} 
+                size={20} 
+                className={rating <= 3 ? "text-gray-300" : `text-${template.color}-500`}
+                fill={rating <= 3 ? "none" : "currentColor"} 
+              />
             ))}
           </div>
         );
       default:
         return null;
+    }
+  };
+
+  const getIconForTemplate = (template: Template) => {
+    switch (template.templateType) {
+      case "standard":
+        return <Grid className={`h-5 w-5 text-${template.color}-600`} />;
+      case "minimal":
+        return <Layout className={`h-5 w-5 text-${template.color}-600`} />;
+      case "branded":
+        return <Award className={`h-5 w-5 text-${template.color}-600`} />;
+      default:
+        return <Grid className={`h-5 w-5 text-${template.color}-600`} />;
     }
   };
 
@@ -279,7 +405,7 @@ const TemplatesLibrary = ({ embedded = false }: TemplatesLibraryProps) => {
           </p>
         </div>
         
-        <div className="relative mb-8">
+        <div className="relative mb-6">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-500" size={18} />
           <Input
             type="text"
@@ -290,14 +416,33 @@ const TemplatesLibrary = ({ embedded = false }: TemplatesLibraryProps) => {
           />
         </div>
         
+        <div className="flex gap-2 flex-wrap mb-8">
+          {categories.map(category => (
+            <Badge 
+              key={category}
+              onClick={() => setCategoryFilter(category)}
+              className={`px-3 py-1 rounded-full cursor-pointer text-sm capitalize 
+                ${categoryFilter === category 
+                  ? 'bg-amber-500 text-white hover:bg-amber-600' 
+                  : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'}`}
+            >
+              {category}
+            </Badge>
+          ))}
+        </div>
+        
         <div className="mb-8">
-          <h2 className="text-lg font-medium text-black mb-4">Recommended</h2>
+          <h2 className="text-lg font-medium text-black mb-4">
+            {filteredTemplates.length > 0 
+              ? `${categoryFilter === 'all' ? 'Recommended' : categoryFilter} Templates` 
+              : 'No templates found'}
+          </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredTemplates.map((template) => (
               <Card 
                 key={template.id}
-                className="overflow-hidden border border-zinc-200 bg-white cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg rounded-2xl"
+                className="overflow-hidden border border-zinc-200 bg-white cursor-pointer transition-all hover:scale-105 hover:shadow-lg rounded-2xl"
                 onClick={() => handleTemplateSelect(template)}
               >
                 <CardContent className="p-5">
@@ -309,7 +454,7 @@ const TemplatesLibrary = ({ embedded = false }: TemplatesLibraryProps) => {
                     )}
                     <div className="flex justify-between items-center mb-5">
                       <div className={`bg-${template.color}-50 rounded-full p-3`}>
-                        <X className={`h-5 w-5 text-${template.color}-600`} />
+                        {getIconForTemplate(template)}
                       </div>
                       <Badge className="bg-zinc-100 text-zinc-600 text-xs font-normal px-2 py-1 rounded-full">
                         {template.templateType}

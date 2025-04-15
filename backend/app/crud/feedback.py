@@ -15,7 +15,11 @@ class CRUDFeedback(CRUDBase[Feedback, FeedbackCreate, FeedbackUpdate]):
             message=obj_in.message,
             user_id=recipient_id,
             ip_address=ip_address,
-            metadata=obj_in.metadata,
+            meta_data=obj_in.meta_data,
+            rating=obj_in.rating,
+            template=obj_in.template,
+            theme=obj_in.theme,
+            template_id=obj_in.templateId
         )
         db.add(db_obj)
         db.commit()

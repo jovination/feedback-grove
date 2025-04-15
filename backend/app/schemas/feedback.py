@@ -6,10 +6,14 @@ from datetime import datetime
 
 class FeedbackBase(BaseModel):
     message: str = Field(..., min_length=1)
+    rating: Optional[int] = None
+    template: Optional[str] = None
+    theme: Optional[str] = None
+    templateId: Optional[str] = None
 
 
 class FeedbackCreate(FeedbackBase):
-    metadata: Optional[Dict[str, Any]] = None
+    meta_data: Optional[Dict[str, Any]] = None
 
 
 class FeedbackUpdate(BaseModel):
@@ -22,7 +26,7 @@ class FeedbackInDB(FeedbackBase):
     user_id: uuid.UUID
     is_read: bool
     ip_address: Optional[str] = None
-    metadata: Optional[Dict[str, Any]] = None
+    meta_data: Optional[Dict[str, Any]] = None
     
     class Config:
         orm_mode = True

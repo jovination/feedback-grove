@@ -7,7 +7,8 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import DashboardPage from "./pages/Dashboard";
 import FeedbackPage from "./pages/Feedback";
-import WidgetTemplatesPage from "./pages/WidgetTemplates";
+import WidgetTemplates from "./pages/WidgetTemplates";
+import FeedbackPreview from "./pages/FeedbackPreview";
 import TemplatesLibraryPage from "./pages/TemplatesLibrary";
 import NotFound from "./pages/NotFound";
 import Features from "./pages/Features";
@@ -15,6 +16,7 @@ import HowItWorks from "./pages/HowItWorks";
 import Resources from "./pages/Resources";
 import Pricing from "./pages/Pricing";
 import AuthProvider from "./contexts/AuthContext";
+
 
 // Create a client
 const queryClient = new QueryClient({
@@ -38,7 +40,9 @@ const App = () => {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/feedback/:username" element={<FeedbackPage />} />
-              <Route path="/widget-templates" element={<WidgetTemplatesPage />} />
+              <Route path="/widget-templates" element={<WidgetTemplates />} />
+              <Route path="/feedback/preview" element={<FeedbackPreview />} />
+              <Route path="/widget-templates/:widgetId" element={<WidgetTemplates />} />
               <Route path="/templates-library" element={<TemplatesLibraryPage />} />
               <Route path="/features" element={<Features />} />
               <Route path="/how-it-works" element={<HowItWorks />} />
