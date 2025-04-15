@@ -59,7 +59,7 @@ const FeedbackWidgetStats = ({
           <h2 className="text-lg font-medium text-zinc-900">Feedback Widgets</h2>
           <p className="text-sm text-zinc-500">Manage your feedback collection forms</p>
         </div>
-        <div className="mt-3 md:mt-0 flex items-center">
+        <div className="mt-3 md:mt-0 flex items-center justify-between">
           <Tabs value={period} onValueChange={(value) => setPeriod(value as "7d" | "30d" | "90d")} className="mr-4">
             <TabsList className="bg-zinc-100 p-0.5">
               <TabsTrigger value="7d" className="text-xs py-1">7d</TabsTrigger>

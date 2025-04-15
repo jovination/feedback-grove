@@ -264,7 +264,7 @@ const Feedback = () => {
 
   return (
     <div className={`min-h-screen flex items-center justify-center p-4 ${getBackgroundColor()}`}>
-      <Card className={`w-full max-w-md ${getBorderStyle()}`}>
+      <Card className={`w-full rounded-3xl py-3 max-w-md ${getBorderStyle()}`}>
         <CardContent className="p-6">
           {submitted ? (
             <div className="text-center py-8">
@@ -301,7 +301,7 @@ const Feedback = () => {
                   <textarea
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}
-                    className={`w-full p-3 rounded-lg resize-none transition-all duration-200 focus:ring-2 focus:ring-${color}-500 ${
+                    className={`w-full p-3 rounded-2xl resize-none transition-all duration-200 focus:ring-2 focus:ring-${color}-500 ${
                       theme === "dark" ? "bg-zinc-800 border-zinc-700" : "bg-white border-zinc-200"
                     } border`}
                     placeholder="Share any additional feedback (optional)"

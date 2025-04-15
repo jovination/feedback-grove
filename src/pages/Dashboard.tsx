@@ -137,35 +137,35 @@ const Dashboard = () => {
     <div className="min-h-screen bg-zinc-50 font-inter">
       <Navbar />
       
-      <div className="max-w-screen-lg mx-auto px-4 sm:px-6 py-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div className="max-w-screen-lg mx-auto px-4 sm:px-6 py-4 sm:py-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-2xl font-semibold text-zinc-900">Dashboard</h1>
+            <h1 className="text-xl sm:text-2xl font-semibold text-zinc-900">Dashboard</h1>
             <p className="text-zinc-500 text-sm">Manage your feedback and widgets</p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Button onClick={copyFeedbackLink} variant="outline" size="sm" className="flex items-center gap-2 border-zinc-200">
-              <LinkIcon size={14} />
-              <span>Copy feedback link</span>
+            <Button onClick={copyFeedbackLink} variant="outline" size="sm" className="flex items-center gap-1 sm:gap-2 border-zinc-200 text-xs sm:text-sm w-full sm:w-auto">
+              <LinkIcon size={14} className="flex-shrink-0" />
+              <span className="truncate">Copy feedback link</span>
             </Button>
-            <Button onClick={handleCreateWidget} className="bg-amber-500 hover:bg-amber-600 text-white" size="sm">
+            <Button onClick={handleCreateWidget} className="bg-amber-500 hover:bg-amber-600 text-white text-xs sm:text-sm w-full sm:w-auto" size="sm">
               Create Widget
             </Button>
           </div>
         </div>
         
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mb-6">
-          <TabsList className="grid grid-cols-3 mb-6">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
-              <LayoutDashboard size={16} />
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mb-4 sm:mb-6">
+          <TabsList className="grid grid-cols-3 mb-4 sm:mb-6 w-full">
+            <TabsTrigger value="dashboard" className="flex items-center justify-center gap-1 sm:gap-2 px-1 sm:px-2 text-xs sm:text-sm">
+              <LayoutDashboard size={14} className="hidden xs:inline-block" />
               <span>Dashboard</span>
             </TabsTrigger>
-            <TabsTrigger value="templates" className="flex items-center gap-2">
-              <LinkIcon size={16} />
+            <TabsTrigger value="templates" className="flex items-center justify-center gap-1 sm:gap-2 px-1 sm:px-2 text-xs sm:text-sm">
+              <LinkIcon size={14} className="hidden xs:inline-block" />
               <span>Templates</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
-              <Settings size={16} />
+            <TabsTrigger value="settings" className="flex items-center justify-center gap-1 sm:gap-2 px-1 sm:px-2 text-xs sm:text-sm">
+              <Settings size={14} className="hidden xs:inline-block" />
               <span>Settings</span>
             </TabsTrigger>
           </TabsList>
@@ -185,8 +185,8 @@ const Dashboard = () => {
               onCreateWidget={handleCreateWidget}
             />
             
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="md:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+              <div className="md:col-span-2 space-y-4">
                 <DashboardTabs
                   isLoading={isLoadingFeedback}
                   feedbackItems={feedbackItems}
@@ -198,7 +198,7 @@ const Dashboard = () => {
                 <EmbedCodeGenerator username={user.username} />
               </div>
               
-              <div>
+              <div className="space-y-4">
                 {!user.is_premium && <PremiumUpsell />}
                 <DashboardGuide />
               </div>
@@ -206,13 +206,13 @@ const Dashboard = () => {
           </TabsContent>
           
           <TabsContent value="templates">
-            <div className="bg-white rounded-lg border border-zinc-200 p-6 mb-6">
+            <div className="bg-white rounded-lg border border-zinc-200 p-3 sm:p-6 mb-4 sm:mb-6 overflow-x-auto">
               <TemplatesLibraryPage embedded={true} />
             </div>
           </TabsContent>
           
           <TabsContent value="settings">
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
               <div className="md:col-span-2">
                 <UserSettings user={user} />
               </div>

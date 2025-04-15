@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -75,11 +74,11 @@ const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
                 onValueChange={(value) => setTemplate(value as "standard" | "minimal" | "branded" | "popup")}
                 className="w-full"
               >
-                <TabsList className="grid w-full grid-cols-4 h-9">
-                  <TabsTrigger value="standard" className="text-xs">Standard</TabsTrigger>
-                  <TabsTrigger value="minimal" className="text-xs">Minimal</TabsTrigger>
-                  <TabsTrigger value="branded" className="text-xs">Branded</TabsTrigger>
-                  <TabsTrigger value="popup" className="text-xs">Popup</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 h-auto">
+                  <TabsTrigger value="standard" className="text-xs py-2">Standard</TabsTrigger>
+                  <TabsTrigger value="minimal" className="text-xs py-2">Minimal</TabsTrigger>
+                  <TabsTrigger value="branded" className="text-xs py-2">Branded</TabsTrigger>
+                  <TabsTrigger value="popup" className="text-xs py-2">Popup</TabsTrigger>
                 </TabsList>
               </Tabs>
             </div>
@@ -91,9 +90,9 @@ const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
                 onValueChange={(value) => setTheme(value as "light" | "dark")}
                 className="w-full"
               >
-                <TabsList className="grid w-full grid-cols-2 h-9">
-                  <TabsTrigger value="light" className="text-xs">Light</TabsTrigger>
-                  <TabsTrigger value="dark" className="text-xs">Dark</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 h-auto">
+                  <TabsTrigger value="light" className="text-xs py-2">Light</TabsTrigger>
+                  <TabsTrigger value="dark" className="text-xs py-2">Dark</TabsTrigger>
                 </TabsList>
               </Tabs>
             </div>
@@ -101,7 +100,7 @@ const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
           
           <div className="relative">
             <pre className="bg-zinc-50 p-3 rounded-lg text-sm overflow-x-auto border border-zinc-200">
-              <code className="text-zinc-800 text-xs">{template === "popup" ? popupCode : iframeCode}</code>
+              <code className="text-zinc-800 text-xs break-all whitespace-pre-wrap">{template === "popup" ? popupCode : iframeCode}</code>
             </pre>
             <Button
               type="button"
@@ -115,36 +114,42 @@ const EmbedCodeGenerator = ({ username }: EmbedCodeGeneratorProps) => {
           </div>
         </div>
         
-        <div className="mt-4 flex justify-between items-center">
-          <p className="text-sm text-zinc-500">
-            Copy and paste this code into your website to embed the feedback form.
-          </p>
-          <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowPlatformCodes(!showPlatformCodes)}
-              className="whitespace-nowrap text-xs flex items-center gap-1"
-            >
-              <Globe size={14} /> {showPlatformCodes ? "Hide Platforms" : "Show More Platforms"}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleExploreTemplates}
-              className="whitespace-nowrap text-xs flex items-center gap-1"
-            >
-              <ExternalLink size={12} /> More Options
-            </Button>
-          </div>
-        </div>
+        <div className="mt-4 flex gap-4 sm:flex-row sm:justify-between sm:items-center">
+  <p className="text-sm text-zinc-500">
+    Copy and paste this code into your website to embed the feedback form.
+  </p>
+  <div className="flex flex-col md:flex-row  md:gap-2">
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={() => setShowPlatformCodes(!showPlatformCodes)}
+      className="text-xs flex items-center gap-1 flex-shrink-0"
+    >
+      <Globe size={14} className="flex-shrink-0" /> 
+      <span className="hidden xs:inline">{showPlatformCodes ? "Hide Platforms" : "Show More Platforms"}</span>
+      <span className="xs:hidden">{showPlatformCodes ? "Hide" : "Platforms"}</span>
+    </Button>
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={handleExploreTemplates}
+      className="text-xs flex items-center gap-1 flex-shrink-0"
+    >
+      <ExternalLink size={12} className="flex-shrink-0" /> 
+      <span className="hidden xs:inline">More Options</span>
+      <span className="xs:hidden">Options</span>
+    </Button>
+  </div>
+</div>
         
         {showPlatformCodes && (
-          <EmbedCodePlatforms 
-            username={username} 
-            theme={theme} 
-            template={template} 
-          />
+          <div className="mt-4">
+            <EmbedCodePlatforms 
+              username={username} 
+              theme={theme} 
+              template={template} 
+            />
+          </div>
         )}
       </CardContent>
     </Card>

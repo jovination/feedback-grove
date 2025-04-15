@@ -27,11 +27,10 @@ const HeroSection = () => {
             className="mb-8"
           >
             <h1 className="text-4xl md:text-5xl font-semibold text-black tracking-tight">
-              Anonymous Feedback
+              Anonymous Feedback Now <br />
+              with <span className="text-amber-500">Superpowers </span>
             </h1>
-            <h2 className="text-4xl md:text-5xl font-semibold text-amber-500 tracking-tight">
-              With Superpowers
-            </h2>
+            
           </motion.div>
           
           <motion.p
@@ -40,8 +39,8 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-md text-zinc-600 mb-10 mx-auto max-w-2xl"
           >
-            FeedbackGrove is the ultimate feedback tool built by founders, for founders. Collect anonymous, real-time feedback from your users.
-          </motion.p>
+    FeedbackGrove is the ultimate feedback tool made for SaaS developers and indie hackers. Collect anonymous, real-time feedback and turn insights into action.
+    </motion.p>
         </div>
         
         <motion.div
