@@ -77,7 +77,7 @@ const FeedbackForm = ({ username }: FeedbackFormProps) => {
           <svg viewBox="0 0 24 24" className="h-3 w-3 mr-1" fill="currentColor">
             <path d="M19.023 7.5c-.413-2.92-2.603-5.11-5.523-5.523v2.023h-3v-2.023c-2.92.413-5.11 2.603-5.523 5.523h2.023v3h-2.023c.413 2.92 2.603 5.11 5.523 5.523v-2.023h3v2.023c2.92-.413 5.11-2.603 5.523-5.523h-2.023v-3h2.023z" />
           </svg>
-          <span>Powered by FeedbackWave</span>
+          <span>Powered by FeedbackGrove</span>
         </div>
       </div>
     </form>

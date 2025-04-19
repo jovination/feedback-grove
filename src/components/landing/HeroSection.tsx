@@ -26,7 +26,7 @@ const HeroSection = () => {
             transition={{ duration: 0.6 }}
             className="mb-8"
           >
-            <h1 className="text-4xl md:text-5xl font-semibold text-black tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-medium text-black tracking-tight">
               Anonymous Feedback Now <br />
               with <span className="text-amber-500">Superpowers </span>
             </h1>

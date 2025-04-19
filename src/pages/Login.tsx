@@ -38,7 +38,7 @@ const Login = () => {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold text-black mb-2">
-              Sign in to FeedbackWave
+              Sign in to FeedbackGrove
             </h2>
             <p className="text-zinc-600">
               Start collecting anonymous feedback today

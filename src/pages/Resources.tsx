@@ -21,7 +21,7 @@ const Resources = () => {
           </h1>
           
           <p className="text-lg text-zinc-600 mb-10 mx-auto max-w-2xl">
-            Discover guides, tutorials, and best practices to get the most out of FeedbackWave
+            Discover guides, tutorials, and best practices to get the most out of FeedbackGrove
           </p>
         </div>
       </section>
@@ -36,7 +36,7 @@ const Resources = () => {
               </div>
               <h3 className="text-xl font-semibold mb-3">Documentation</h3>
               <p className="text-zinc-600 mb-4">
-                Comprehensive guides to help you integrate and use FeedbackWave effectively.
+                Comprehensive guides to help you integrate and use FeedbackGrove effectively.
               </p>
               <Button variant="outline" className="border-zinc-200 mt-2" asChild>
                 <Link to="#">
@@ -70,7 +70,7 @@ const Resources = () => {
                 <FileText className="text-green-600" size={20} />
               </div>
               <div className="flex-grow">
-                <h3 className="text-lg font-medium">Getting Started with FeedbackWave</h3>
+                <h3 className="text-lg font-medium">Getting Started with FeedbackGrove</h3>
                 <p className="text-zinc-600 text-sm mt-1">
                   Learn how to set up your account and collect your first feedback in under 5 minutes.
                 </p>
@@ -180,7 +180,7 @@ const Resources = () => {
       <footer className="py-10 border-t border-zinc-200 mt-auto bg-white">
         <div className="container-tight">
           <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-            <div className="text-xl font-bold mb-4 md:mb-0">FeedbackWave</div>
+            <div className="text-xl font-bold mb-4 md:mb-0">FeedbackGrove</div>
             <div className="flex space-x-8">
               <Link to="#" className="text-sm text-zinc-600 hover:text-zinc-900">Features</Link>
               <Link to="#" className="text-sm text-zinc-600 hover:text-zinc-900">Pricing</Link>
@@ -190,7 +190,7 @@ const Resources = () => {
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-zinc-100">
             <p className="text-sm text-zinc-500 mb-4 md:mb-0">
-              © {new Date().getFullYear()} FeedbackWave. All rights reserved.
+              © {new Date().getFullYear()} FeedbackGrove. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <Link to="#" className="text-sm text-zinc-500 hover:text-zinc-800">Terms</Link>

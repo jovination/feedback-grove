@@ -13,7 +13,7 @@ const ExamplesSection = () => {
             See what feedback looks like
           </h2>
           <p className="text-zinc-600 mx-auto max-w-2xl mt-4">
-            Here are examples of the kind of valuable feedback you can collect with FeedbackWave.
+            Here are examples of the kind of valuable feedback you can collect with FeedbackGrove.
           </p>
         </div>
 

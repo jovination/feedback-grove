@@ -28,7 +28,7 @@ const HowItWorks = () => {
           </h1>
           
           <p className="text-lg text-zinc-600 mb-10 mx-auto max-w-2xl">
-            FeedbackWave makes it incredibly simple to start collecting honest, anonymous feedback 
+            FeedbackGrove makes it incredibly simple to start collecting honest, anonymous feedback 
             from your audience. Here's how it works.
           </p>
         </div>
@@ -314,7 +314,7 @@ const HowItWorks = () => {
       <footer className="py-10 border-t border-zinc-200 mt-auto bg-white">
         <div className="container-tight">
           <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-            <div className="text-xl font-bold mb-4 md:mb-0">FeedbackWave</div>
+            <div className="text-xl font-bold mb-4 md:mb-0">FeedbackGrove</div>
             <div className="flex space-x-8">
               <Link to="#" className="text-sm text-zinc-600 hover:text-zinc-900">Features</Link>
               <Link to="#" className="text-sm text-zinc-600 hover:text-zinc-900">Pricing</Link>

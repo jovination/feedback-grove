@@ -57,7 +57,7 @@ const Register = () => {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold text-black mb-2">
-              Create your FeedbackWave account
+              Create your FeedbackGrove account
             </h2>
             <p className="text-zinc-600">
               Start collecting anonymous feedback in minutes
@@ -96,7 +96,7 @@ const Register = () => {
                     required
                   />
                   <p className="mt-1 text-xs text-zinc-500">
-                    This will be your public URL: feedbackwave.com/feedback/{username}
+                    This will be your public URL: feedbackGrove.com/feedback/{username}
                   </p>
                 </div>
 

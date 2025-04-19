@@ -30,7 +30,7 @@ const testimonialsData: Testimonial[] = [
     role: "Team Lead",
     company: "Technology Company",
     rating: 5,
-    comment: "FeedbackWave has completely transformed our feedback process. We're now getting honest insights that we never had access to before."
+    comment: "FeedbackGrove has completely transformed our feedback process. We're now getting honest insights that we never had access to before."
   },
   {
     initial: "M",
@@ -48,7 +48,7 @@ const testimonialsData: Testimonial[] = [
     role: "Director",
     company: "Education Sector",
     rating: 5,
-    comment: "Setting up FeedbackWave was incredibly easy. Within minutes, I had a feedback system that my entire organization could use."
+    comment: "Setting up FeedbackGrove was incredibly easy. Within minutes, I had a feedback system that my entire organization could use."
   }
 ];
 
@@ -67,7 +67,7 @@ const TestimonialsSection = () => {
             What our users say
           </h2>
           <p className="text-zinc-600 mx-auto max-w-2xl mt-4">
-            See how FeedbackWave has transformed the way our customers collect and utilize feedback.
+            See how FeedbackGrove has transformed the way our customers collect and utilize feedback.
           </p>
         </div>
 

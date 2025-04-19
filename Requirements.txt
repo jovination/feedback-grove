@@ -37,7 +37,7 @@ DATABASE_URL=postgresql://username:password@localhost/feedbackgrove_db
 SECRET_KEY=your_secret_key_here
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 CORS_ORIGINS=["http://localhost:5173", "http://localhost:3000"]
-PROJECT_NAME=FeedbackWave
+PROJECT_NAME=FeedbackGrove
 API_V1_STR=/api
 ```
 

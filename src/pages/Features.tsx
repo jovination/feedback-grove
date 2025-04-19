@@ -89,7 +89,7 @@ const Features = () => {
               <span className="text-amber-600 font-medium">Privacy First</span>
               <h2 className="text-2xl font-semibold mt-2 mb-4">Complete Anonymity</h2>
               <p className="text-zinc-600 mb-4">
-                We've built FeedbackWave with privacy at its core. Our system ensures that feedback providers remain completely anonymous.
+                We've built FeedbackGrove with privacy at its core. Our system ensures that feedback providers remain completely anonymous.
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start">
@@ -139,7 +139,7 @@ const Features = () => {
               <span className="text-amber-600 font-medium">Easy Integration</span>
               <h2 className="text-2xl font-semibold mt-2 mb-4">Works Everywhere</h2>
               <p className="text-zinc-600 mb-4">
-                Add FeedbackWave to any website or platform with our flexible integration options.
+                Add FeedbackGrove to any website or platform with our flexible integration options.
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start">
@@ -270,7 +270,7 @@ const Features = () => {
       <footer className="py-10 border-t border-zinc-200 mt-auto bg-white">
         <div className="container-tight">
           <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-            <div className="text-xl font-bold mb-4 md:mb-0">FeedbackWave</div>
+            <div className="text-xl font-bold mb-4 md:mb-0">FeedbackGrove</div>
             <div className="flex space-x-8">
               <Link to="#" className="text-sm text-zinc-600 hover:text-zinc-900">Features</Link>
               <Link to="#" className="text-sm text-zinc-600 hover:text-zinc-900">Pricing</Link>
